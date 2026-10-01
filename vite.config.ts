@@ -14,12 +14,15 @@ const STATIC_PAGES = [
   "/", "/services", "/products", "/solar-cam", "/about", "/contact", "/quote", "/privacy",
   "/industries/residential", "/industries/commercial", "/industries/construction", "/industries/farm",
   "/sitemap.xml", "/robots.txt",
+  "/api/assistant-prompt.txt", // moved into api/lib/ (private) by scripts/finish-static.mjs
 ];
 
 export default defineConfig(({ mode, command }) => {
   const designInspectorEnabled = process.env.HF_DESIGN_INSPECTOR === "1" || mode === "design";
 
   return {
+    // true in the HostGator build — the site then talks to the PHP endpoints.
+    define: { __STATIC_BUILD__: JSON.stringify(process.env.STATIC === "1") },
     // The server bundle runs as a Cloudflare Worker — there is no node_modules
     // at runtime. Vite's default SSR build leaves npm deps as bare external
     // imports (h3, react, @tanstack/*, seroval, …), which resolve on a Node

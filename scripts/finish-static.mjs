@@ -1,8 +1,9 @@
 // Finishes the static build (npm run build:static) for Apache shared hosting
-// such as HostGator: adds .htaccess + 404.html to dist/client and zips it to
-// deploy/site-vision-hostgator.zip. Upload/extract that zip into public_html.
+// such as HostGator: adds .htaccess, 404.html and the PHP endpoints (api/) to
+// dist/client and zips it to deploy/site-vision-hostgator.zip. Upload/extract
+// that zip into public_html; put sitevision-config.php one level above it.
 import { execFileSync } from "node:child_process";
-import { mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { cpSync, existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -77,10 +78,23 @@ writeFileSync(
 <a href="/" class="btn-pill">Go Home</a></div></div></body></html>`,
 );
 
-// The chat endpoint needs a server; on static hosting the widget answers from the FAQ.
+// PHP endpoints for shared hosting: api/chat.php (Claude) + api/quote.php (email).
+const php = path.join(root, "php");
+if (!existsSync(path.join(php, "lib", "vendor", "autoload.php"))) {
+  console.log("Installing PHP dependencies (composer)…");
+  execFileSync("composer", ["install", "--no-dev", "--optimize-autoloader", "-q"], { cwd: php, stdio: "inherit" });
+}
+const api = path.join(out, "api");
+for (const file of ["chat.php", "quote.php"]) cpSync(path.join(php, file), path.join(api, file));
+for (const file of ["bootstrap.php", ".htaccess"]) cpSync(path.join(php, "lib", file), path.join(api, "lib", file));
+cpSync(path.join(php, "lib", "vendor"), path.join(api, "lib", "vendor"), { recursive: true });
+// The assistant's instructions, pre-rendered from src/lib/assistant.server.ts — keep it private.
+renameSync(path.join(api, "assistant-prompt.txt"), path.join(api, "lib", "assistant-prompt.txt"));
+
 const deployDir = path.join(root, "deploy");
 mkdirSync(deployDir, { recursive: true });
 const zip = path.join(deployDir, "site-vision-hostgator.zip");
 rmSync(zip, { force: true });
 execFileSync("zip", ["-qr", zip, ".", "-x", ".DS_Store", "*/.DS_Store"], { cwd: out });
+cpSync(path.join(php, "sitevision-config.example.php"), path.join(deployDir, "sitevision-config.example.php"));
 console.log(`Static site ready: ${path.relative(root, out)}/  →  ${path.relative(root, zip)}`);

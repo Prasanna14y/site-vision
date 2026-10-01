@@ -19,6 +19,7 @@ import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SolarCamRouteImport } from './routes/solar-cam'
+import { Route as ApiAssistantPromptDottxtRouteImport } from './routes/api/assistant-prompt[.]txt'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as IndustriesIndexRouteImport } from './routes/industries/index'
 import { Route as IndustriesCommercialRouteImport } from './routes/industries/commercial'
@@ -76,6 +77,12 @@ const SolarCamRoute = SolarCamRouteImport.update({
   path: '/solar-cam',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAssistantPromptDottxtRoute =
+  ApiAssistantPromptDottxtRouteImport.update({
+    id: '/api/assistant-prompt.txt',
+    path: '/api/assistant-prompt.txt',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
   id: '/api/chat',
   path: '/api/chat',
@@ -118,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solar-cam': typeof SolarCamRoute
+  '/api/assistant-prompt.txt': typeof ApiAssistantPromptDottxtRoute
   '/api/chat': typeof ApiChatRoute
   '/industries/commercial': typeof IndustriesCommercialRoute
   '/industries/construction': typeof IndustriesConstructionRoute
@@ -136,6 +144,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solar-cam': typeof SolarCamRoute
+  '/api/assistant-prompt.txt': typeof ApiAssistantPromptDottxtRoute
   '/api/chat': typeof ApiChatRoute
   '/industries/commercial': typeof IndustriesCommercialRoute
   '/industries/construction': typeof IndustriesConstructionRoute
@@ -155,6 +164,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solar-cam': typeof SolarCamRoute
+  '/api/assistant-prompt.txt': typeof ApiAssistantPromptDottxtRoute
   '/api/chat': typeof ApiChatRoute
   '/industries/commercial': typeof IndustriesCommercialRoute
   '/industries/construction': typeof IndustriesConstructionRoute
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/solar-cam'
+    | '/api/assistant-prompt.txt'
     | '/api/chat'
     | '/industries/commercial'
     | '/industries/construction'
@@ -193,6 +204,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/solar-cam'
+    | '/api/assistant-prompt.txt'
     | '/api/chat'
     | '/industries/commercial'
     | '/industries/construction'
@@ -211,6 +223,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/solar-cam'
+    | '/api/assistant-prompt.txt'
     | '/api/chat'
     | '/industries/commercial'
     | '/industries/construction'
@@ -230,6 +243,7 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SolarCamRoute: typeof SolarCamRoute
+  ApiAssistantPromptDottxtRoute: typeof ApiAssistantPromptDottxtRoute
   ApiChatRoute: typeof ApiChatRoute
   IndustriesCommercialRoute: typeof IndustriesCommercialRoute
   IndustriesConstructionRoute: typeof IndustriesConstructionRoute
@@ -310,6 +324,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SolarCamRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/assistant-prompt.txt': {
+      id: '/api/assistant-prompt.txt'
+      path: '/api/assistant-prompt.txt'
+      fullPath: '/api/assistant-prompt.txt'
+      preLoaderRoute: typeof ApiAssistantPromptDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/chat': {
       id: '/api/chat'
       path: '/api/chat'
@@ -366,6 +387,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SolarCamRoute: SolarCamRoute,
+  ApiAssistantPromptDottxtRoute: ApiAssistantPromptDottxtRoute,
   ApiChatRoute: ApiChatRoute,
   IndustriesCommercialRoute: IndustriesCommercialRoute,
   IndustriesConstructionRoute: IndustriesConstructionRoute,

@@ -67,10 +67,17 @@ This creates `deploy/site-vision-hostgator.zip` (a copy of `dist/client/`), whic
 3. Make sure hidden files are shown (Settings → Show Hidden Files) and that `.htaccess` is there.
 4. In cPanel, open **SSL/TLS Status** and enable AutoSSL. The `.htaccess` file forces HTTPS.
 
-Notes for static hosting:
-- The chat assistant answers from the FAQ, because `/api/chat` needs a server.
-- The quote form opens the visitor's email app.
-- To change anything, edit, run `npm run build:static` again, then re-upload.
+5. **Turn on the chat AI and the quote emails.** Copy `deploy/sitevision-config.example.php` to **`sitevision-config.php`** and put it in the cPanel **home folder**, one level *above* `public_html`, so it can never be downloaded. Fill in:
+   - `anthropic_api_key`: the Claude API key. Leave it empty to keep the chat in FAQ-only mode.
+   - `quote_to`: where quote requests go (default `info@sitevision.au`).
+   - `mail_from`: an email address on the website's domain, for example `website@sitevision.au`. Create it in cPanel → Email Accounts.
+6. In cPanel → **MultiPHP Manager**, set the domain to **PHP 8.1 or newer**.
+
+How the PHP side works (source in `php/`, packaged into `public_html/api/`):
+- **`api/chat.php`**: the chat assistant. It uses Anthropic's official PHP SDK (`php/composer.json`, bundled in `api/lib/vendor`) with the same instructions as the Node version (`api/lib/assistant-prompt.txt`, generated from `src/lib/assistant.server.ts`). It's limited to 30 messages per 10 minutes per visitor. With no key it returns 503 and the widget answers from the FAQ.
+- **`api/quote.php`**: emails quote requests with PHP `mail()`. It includes a honeypot spam trap and a limit of 5 per hour per visitor. If sending fails, the form falls back to opening the visitor's email app.
+- **`api/lib/`** is blocked from the web by its own `.htaccess`.
+- To change anything, edit the source, run `npm run build:static` again, then re-upload. Composer must be installed; the build runs `composer install` if needed.
 
 ## Build & deploy
 

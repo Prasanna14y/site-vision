@@ -22,7 +22,7 @@ import { FAQS, SOLAR_FAQS } from "../lib/faq";
 
 // Settings for the chat assistant (public/assets/chat-widget.js).
 const CHAT_CONFIG = JSON.stringify({
-  endpoint: "/api/chat",
+  endpoint: __STATIC_BUILD__ ? "/api/chat.php" : "/api/chat",
   quoteUrl: "/quote",
   phoneDisplay: BUSINESS.phoneDisplay,
   phoneHref: BUSINESS.phoneHref ? `tel:${BUSINESS.phoneHref}` : "",

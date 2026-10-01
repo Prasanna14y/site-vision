@@ -8,3 +8,6 @@ dist/
 .env
 .env.*
 deploy/
+php/lib/vendor/
+php/lib/data/
+php/lib/assistant-prompt.txt

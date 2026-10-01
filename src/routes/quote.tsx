@@ -18,29 +18,57 @@ export const Route = createFileRoute("/quote")({
 });
 
 function QuotePage() {
-  const [submitted, setSubmitted] = useState(false);
+  // "sent" = emailed by the server (HostGator PHP); "mailto" = handed to the visitor's email app.
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "mailto">("idle");
   const { product } = Route.useSearch();
 
-  // No backend mail service yet: hand the enquiry to the visitor's email app,
-  // pre-addressed to the business with every field filled in.
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  // HostGator build: send through api/quote.php. Otherwise — or if that fails —
+  // hand the enquiry to the visitor's email app, pre-addressed and filled in.
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const field = (id: string) =>
       ((form.elements.namedItem(id) as HTMLInputElement | null)?.value ?? "").trim();
-    const name = field("name");
+    const data = {
+      name: field("name"),
+      phone: field("phone"),
+      email: field("email"),
+      suburb: field("suburb"),
+      state: field("state"),
+      enquiryType: field("enquiryType"),
+      message: field("message"),
+      website: field("website"), // honeypot
+    };
+
+    if (__STATIC_BUILD__) {
+      setStatus("sending");
+      try {
+        const res = await fetch("/api/quote.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (res.ok) {
+          setStatus("sent");
+          return;
+        }
+      } catch {
+        // fall through to the email app
+      }
+    }
+
     const body = [
-      `Name: ${name}`,
-      `Phone: ${field("phone")}`,
-      `Email: ${field("email")}`,
-      `Suburb: ${field("suburb")}, ${field("state")}`,
-      `Enquiry type: ${field("enquiryType")}`,
+      `Name: ${data.name}`,
+      `Phone: ${data.phone}`,
+      `Email: ${data.email}`,
+      `Suburb: ${data.suburb}, ${data.state}`,
+      `Enquiry type: ${data.enquiryType}`,
       "",
-      field("message"),
+      data.message,
     ].join("\n");
-    const subject = `Quote request — ${field("enquiryType")} — ${name} (${field("suburb")})`;
+    const subject = `Quote request — ${data.enquiryType} — ${data.name} (${data.suburb})`;
     window.location.href = `mailto:${BUSINESS.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    setSubmitted(true);
+    setStatus("mailto");
   };
 
   return (
@@ -61,13 +89,17 @@ function QuotePage() {
         <div className="content-container">
           <div className="grid md:grid-cols-5 gap-12">
             <div className="md:col-span-3">
-              {submitted ? (
+              {status === "sent" || status === "mailto" ? (
                 <div className="bg-[#F5F5F5] p-8 text-center">
                   <div className="w-16 h-16 bg-[#1A1A1A] flex items-center justify-center mx-auto mb-4">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                   </div>
-                  <h2 className="text-2xl font-bold font-display text-[#1A1A1A] tracking-tight mb-3">Almost done</h2>
+                  <h2 className="text-2xl font-bold font-display text-[#1A1A1A] tracking-tight mb-3">{status === "sent" ? "Request received" : "Almost done"}</h2>
+                  {status === "sent" ? (
+                    <p className="text-[#4A4A4A] max-w-[420px] mx-auto">Thanks — your quote request is with our team. We'll be in touch within 24 hours{BUSINESS.phoneDisplay && <>. Need us sooner? Call <a href={telHref()} className="text-[#DF2227] font-semibold hover:underline">{BUSINESS.phoneDisplay}</a></>}.</p>
+                  ) : (
                   <p className="text-[#4A4A4A] max-w-[420px] mx-auto">Your email app should have opened with your quote request ready to go — just hit send. If it didn't, email us at <a href={`mailto:${BUSINESS.email}`} className="text-[#DF2227] font-semibold hover:underline">{BUSINESS.email}</a>{BUSINESS.phoneDisplay && <> or call <a href={telHref()} className="text-[#DF2227] font-semibold hover:underline">{BUSINESS.phoneDisplay}</a></>}.</p>
+                  )}
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -130,8 +162,13 @@ function QuotePage() {
                     We only use your details to respond to your enquiry. See our{" "}
                     <Link to="/privacy" className="underline hover:text-[#DF2227]">Privacy Policy</Link>.
                   </p>
-                  <button type="submit" className="btn-filled text-base w-full sm:w-auto">
-                    Submit Quote Request
+                  {/* Honeypot for bots — hidden from people and screen readers */}
+                  <div className="hidden" aria-hidden="true">
+                    <label htmlFor="website">Website</label>
+                    <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
+                  </div>
+                  <button type="submit" disabled={status === "sending"} className="btn-filled text-base w-full sm:w-auto disabled:opacity-60">
+                    {status === "sending" ? "Sending…" : "Submit Quote Request"}
                     <span className="arrow">→</span>
                   </button>
                 </form>
