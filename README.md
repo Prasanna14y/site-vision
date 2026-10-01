@@ -52,6 +52,26 @@ A chat bubble on every page (`public/assets/chat-widget.js`). It calls `POST /ap
 - **Without a key** (and in the single-file preview), the widget answers from the FAQ (`src/lib/faq.ts`) instead.
 - **Before launch,** add rate limiting for `/api/chat`, for example a Cloudflare WAF rate-limit rule, to cap API spend.
 
+## Hosting on HostGator (cPanel / shared hosting)
+
+HostGator can't run the Node server, so the site is pre-rendered to plain HTML:
+
+```bash
+npm run build:static
+```
+
+This creates `deploy/site-vision-hostgator.zip` (a copy of `dist/client/`), which contains every page as `index.html`, `sitemap.xml`, `robots.txt`, `404.html` and `.htaccess`.
+
+1. In cPanel, open **File Manager** and go to `public_html` for the domain. Back up and remove any old site files there.
+2. **Upload** `site-vision-hostgator.zip`, then right-click it and choose **Extract**. Delete the zip afterwards.
+3. Make sure hidden files are shown (Settings → Show Hidden Files) and that `.htaccess` is there.
+4. In cPanel, open **SSL/TLS Status** and enable AutoSSL. The `.htaccess` file forces HTTPS.
+
+Notes for static hosting:
+- The chat assistant answers from the FAQ, because `/api/chat` needs a server.
+- The quote form opens the visitor's email app.
+- To change anything, edit, run `npm run build:static` again, then re-upload.
+
 ## Build & deploy
 
 ```bash

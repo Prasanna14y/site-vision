@@ -1,10 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { BUSINESS } from '../lib/business'
 
 export const Route = createFileRoute('/sitemap.xml')({
   server: {
     handlers: {
-      GET: async ({ request }) => {
-        const origin = new URL(request.url).origin
+      GET: async () => {
+        const origin = BUSINESS.siteUrl // real domain, also correct in the static build
         const today = new Date().toISOString().split('T')[0]
         const paths = [
           '/', '/services', '/products', '/solar-cam', '/industries/residential',

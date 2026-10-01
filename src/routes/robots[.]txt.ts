@@ -1,10 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { BUSINESS } from '../lib/business'
 
 export const Route = createFileRoute('/robots.txt')({
   server: {
     handlers: {
-      GET: async ({ request }) => {
-        const origin = new URL(request.url).origin
+      GET: async () => {
+        const origin = BUSINESS.siteUrl // real domain, also correct in the static build
         const body = [
           'User-agent: *',
           'Allow: /',

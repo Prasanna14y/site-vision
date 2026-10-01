@@ -13,7 +13,8 @@
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
     "photos": "python3 scripts/import-photos.py",
-    "preview:html": "vite build && python3 scripts/export-single-html.py && rm -rf dist"
+    "preview:html": "vite build && python3 scripts/export-single-html.py && rm -rf dist",
+    "build:static": "STATIC=1 vite build && node scripts/finish-static.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.131.0",

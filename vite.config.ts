@@ -9,6 +9,13 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 
+// Every public page (and the generated text files) for the static build.
+const STATIC_PAGES = [
+  "/", "/services", "/products", "/solar-cam", "/about", "/contact", "/quote", "/privacy",
+  "/industries/residential", "/industries/commercial", "/industries/construction", "/industries/farm",
+  "/sitemap.xml", "/robots.txt",
+];
+
 export default defineConfig(({ mode, command }) => {
   const designInspectorEnabled = process.env.HF_DESIGN_INSPECTOR === "1" || mode === "design";
 
@@ -47,6 +54,19 @@ export default defineConfig(({ mode, command }) => {
       // inside effects/handlers, or guarded with `typeof window !== "undefined"`.
       tanstackStart({
         server: { entry: "server" },
+        // STATIC=1 (npm run build:static): pre-render every page to plain HTML
+        // for shared hosting such as HostGator — upload dist/client to public_html.
+        ...(process.env.STATIC === "1"
+          ? {
+              pages: STATIC_PAGES.map((path) => ({ path })),
+              prerender: {
+                enabled: true,
+                crawlLinks: false,
+                autoSubfolderIndex: true,
+                failOnError: true,
+              },
+            }
+          : {}),
       }),
       higgsfieldDesignInspectorVitePlugin(designInspectorEnabled),
       react({
