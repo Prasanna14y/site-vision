@@ -38,19 +38,19 @@ function LocationsPage() {
 
       <section className="section-padding bg-white">
         <div className="content-container">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
             {LOCATIONS.map((l) => (
               <Link
                 key={l.slug}
                 to="/locations/$suburb"
                 params={{ suburb: l.slug }}
-                className="group border border-[#E5E5E5] p-6 hover:border-[#1A1A1A] transition-colors flex flex-col"
+                className="group border border-[#E5E5E5] p-4 md:p-6 hover:border-[#1A1A1A] transition-colors flex flex-col"
               >
-                <div className="font-mono text-[0.65rem] tracking-[0.15em] text-[#DF2227] uppercase mb-2">{FOCUS_LABEL[l.focus]}</div>
-                <h2 className="font-display text-2xl font-bold text-[#1A1A1A] tracking-tight">{l.name}</h2>
-                <p className="text-sm text-[#4A4A4A] mt-2 leading-relaxed flex-1">{l.headline}</p>
-                <p className="text-xs text-[#4A4A4A] mt-3">Also: {l.alsoCovering.slice(0, 3).join(", ")}</p>
-                <span className="mt-4 text-sm font-semibold text-[#DF2227] group-hover:underline">View {l.name} →</span>
+                <div className="font-mono text-[0.55rem] md:text-[0.65rem] tracking-[0.12em] md:tracking-[0.15em] text-[#DF2227] uppercase mb-2 leading-snug">{FOCUS_LABEL[l.focus]}</div>
+                <h2 className="font-display text-lg md:text-2xl font-bold text-[#1A1A1A] tracking-tight">{l.name}</h2>
+                <p className="hidden md:block text-sm text-[#4A4A4A] mt-2 leading-relaxed flex-1">{l.headline}</p>
+                <p className="hidden md:block text-xs text-[#4A4A4A] mt-3">Also: {l.alsoCovering.slice(0, 3).join(", ")}</p>
+                <span className="mt-auto pt-3 md:pt-4 text-sm font-semibold text-[#DF2227] group-hover:underline">View →</span>
               </Link>
             ))}
           </div>

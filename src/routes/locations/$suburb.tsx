@@ -104,7 +104,7 @@ function LocationPage() {
             )}
           </div>
           <p className="mt-6 text-sm text-white/60">
-            Based in Hallam — {l.drive}. {BUSINESS.yearsExperience} years' experience · {BUSINESS.homesSecured}+ homes and {BUSINESS.sitesSecured}+ sites secured.
+            {l.slug === "hallam" ? "Based right here in Hallam" : `Based in Hallam, ${l.drive} away`} · {BUSINESS.yearsExperience} years' experience · {BUSINESS.homesSecured}+ homes and {BUSINESS.sitesSecured}+ sites secured.
           </p>
         </div>
       </section>

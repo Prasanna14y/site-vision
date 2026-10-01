@@ -28,7 +28,7 @@ export const LOCATIONS: Location[] = [
     slug: "hallam",
     name: "Hallam",
     council: "City of Casey",
-    drive: "our home base",
+    drive: "right here",
     headline: "Security systems in Hallam — from the local team",
     intro:
       "Site Vision Security is based right here in Hallam, at 31 Rusty Pl. For local homes and businesses that means advice from people down the road, quick site visits, and a team that's easy to reach after the install.",
@@ -50,7 +50,7 @@ export const LOCATIONS: Location[] = [
     slug: "narre-warren",
     name: "Narre Warren",
     council: "City of Casey",
-    drive: "a few minutes from Hallam",
+    drive: "a few minutes",
     headline: "Home & business security in Narre Warren",
     intro:
       "From family homes in Narre Warren and Narre Warren South to shops and offices around Fountain Gate, we design security that suits how you live and work — installed by a team just minutes away in Hallam.",
@@ -72,7 +72,7 @@ export const LOCATIONS: Location[] = [
     slug: "berwick",
     name: "Berwick",
     council: "City of Casey",
-    drive: "around 10 minutes from Hallam",
+    drive: "around 10 minutes",
     headline: "Security cameras & alarms for Berwick homes",
     intro:
       "Berwick's established streets, larger blocks, and acreage around Harkaway call for security that covers long driveways and wide yards — and looks neat on the house. That's what we design.",
@@ -94,7 +94,7 @@ export const LOCATIONS: Location[] = [
     slug: "dandenong",
     name: "Dandenong",
     council: "City of Greater Dandenong",
-    drive: "around 10–15 minutes from Hallam",
+    drive: "around 10–15 minutes",
     headline: "Commercial & industrial security in Dandenong",
     intro:
       "Dandenong and Dandenong South are home to some of Melbourne's biggest industrial and commercial precincts. We secure warehouses, factories, yards, and shopfronts with systems built for large sites and after-hours risk.",
@@ -116,7 +116,7 @@ export const LOCATIONS: Location[] = [
     slug: "cranbourne",
     name: "Cranbourne",
     council: "City of Casey",
-    drive: "around 15 minutes from Hallam",
+    drive: "around 15 minutes",
     headline: "Security for Cranbourne's new homes and building sites",
     intro:
       "Cranbourne, Cranbourne East, Cranbourne West, and nearby Clyde are full of new estates — and new builds. We protect building sites during construction, then the finished home once you move in.",
@@ -138,7 +138,7 @@ export const LOCATIONS: Location[] = [
     slug: "pakenham",
     name: "Pakenham",
     council: "Cardinia Shire",
-    drive: "around 20 minutes from Hallam",
+    drive: "around 20 minutes",
     headline: "Building site & home security in Pakenham",
     intro:
       "Pakenham and Officer sit in one of Melbourne's fastest-growing corridors. Between new estates, building sites, and the Pakenham industrial area, we cover homes, businesses, and construction across Cardinia Shire.",
@@ -160,7 +160,7 @@ export const LOCATIONS: Location[] = [
     slug: "frankston",
     name: "Frankston",
     council: "City of Frankston",
-    drive: "around 25 minutes from Hallam",
+    drive: "around 25 minutes",
     headline: "Security cameras & alarms in Frankston",
     intro:
       "From homes in Frankston, Frankston South, and Langwarrin to shops in the Frankston centre and businesses around Carrum Downs, we install security that holds up in a bayside environment.",

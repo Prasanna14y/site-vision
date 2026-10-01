@@ -67,6 +67,9 @@
   }
 }
 
+/* Component classes — in the components layer so Tailwind utilities on the
+   same element (text-white, border-white/30, max-w-3xl, pt-0 …) override them. */
+@layer components {
 /* Utility classes */
 .eyebrow {
   font-family: var(--font-mono);
@@ -304,7 +307,7 @@ html {
     font-size: 1.25rem;
   }
 }
-
+}
 
 /* Camera-feed scan line */
 @keyframes scan {

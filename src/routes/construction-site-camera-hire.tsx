@@ -122,7 +122,7 @@ function ConstructionHirePage() {
               More about the {SOLAR_CAM.name} →
             </Link>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3 swipe-mobile swipe-narrow">
             {[4, 11, 6, 2].map((i) => (
               <picture key={i}>
                 <source srcSet={SOLAR_INSTALLS[i].webp} type="image/webp" />
