@@ -108,7 +108,7 @@ function QuotePage() {
                     </div>
                     <div>
                       <label htmlFor="enquiryType" className="block text-sm font-semibold text-[#1A1A1A] mb-1.5">Enquiry Type *</label>
-                      <select id="enquiryType" required defaultValue={product ? "Product" : ""} key={product ?? "none"} className="w-full border border-[#E5E5E5] bg-white px-4 py-3 text-sm text-[#1A1A1A] focus:outline-none focus:border-[#DF2227] transition-colors">
+                      <select id="enquiryType" required defaultValue={product ? (product.includes("hire") ? "Solar Cam hire" : "Product") : ""} key={product ?? "none"} className="w-full border border-[#E5E5E5] bg-white px-4 py-3 text-sm text-[#1A1A1A] focus:outline-none focus:border-[#DF2227] transition-colors">
                         <option value="">Select type</option>
                         <option value="Residential">Residential Home</option>
                         <option value="Commercial">Commercial Property</option>
@@ -116,6 +116,7 @@ function QuotePage() {
                         <option value="Farm">Farm / Rural Property</option>
                         <option value="Multi-Site">Multi-Site / Enterprise</option>
                         <option value="Existing">Upgrade Existing System</option>
+                        <option value="Solar Cam hire">Solar Cam hire (building site)</option>
                         <option value="Product">Buy products / equipment</option>
                         <option value="Other">Other</option>
                       </select>

@@ -26,7 +26,7 @@ export const CATALOGUE: Category[] = [
       { name: "IP Bullet Cameras", desc: "Long-range outdoor cameras for driveways, perimeters, and car parks." },
       { name: "IP Dome & Turret Cameras", desc: "Discreet, vandal-resistant cameras for entries, shopfronts, and ceilings." },
       { name: "PTZ Cameras", desc: "Pan-tilt-zoom cameras to cover large areas and follow movement." },
-      { name: "Solar 4G/5G Cameras", desc: "Off-grid cameras for sites with no power or internet.", href: "/solar-cam" },
+      { name: "Site Vision Solar Cam", desc: "Self-powered site camera — available on weekly hire for building sites.", href: "/solar-cam" },
       { name: "ANPR Cameras", desc: "Number-plate recognition cameras for car parks and gates." },
     ],
   },

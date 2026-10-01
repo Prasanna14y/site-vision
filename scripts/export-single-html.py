@@ -91,6 +91,9 @@ def main():
     for p in sorted((assets / "photos").glob("*")) if (assets / "photos").exists() else []:
         mime = "image/webp" if p.suffix == ".webp" else "image/jpeg"
         body = body.replace(f"/assets/photos/{p.name}", data_uri(p, mime))
+    for p in sorted((assets / "solar").glob("*")):
+        mime = "image/webp" if p.suffix == ".webp" else "image/jpeg"
+        body = body.replace(f"/assets/solar/{p.name}", data_uri(p, mime))
     for name in ("main.svg", "main-on-dark.svg"):
         body = body.replace(f"/assets/logo/{name}", data_uri(assets / "logo" / name, "image/svg+xml"))
     body = body.replace('src="/assets/favicon.svg"', f'src="{data_uri(assets / "favicon.svg", "image/svg+xml")}"')

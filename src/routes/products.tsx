@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BUSINESS, canonical, telHref } from "../lib/business";
 import { BRANDS, CATALOGUE } from "../lib/catalogue";
+import { SOLAR_CAM, SOLAR_PHOTOS } from "../lib/solarCam";
 
 export const Route = createFileRoute("/products")({
   head: () => ({
@@ -51,6 +52,24 @@ function ProductsPage() {
           {BRANDS.map((b) => (
             <span key={b} className="font-display font-bold text-[#1A1A1A]/70 tracking-tight">{b}</span>
           ))}
+        </div>
+      </section>
+
+      {/* Solar Cam feature */}
+      <section className="bg-white pt-12 md:pt-16">
+        <div className="content-container">
+          <Link to="/solar-cam" className="group grid md:grid-cols-5 bg-[#111] text-white overflow-hidden">
+            <picture className="md:col-span-2">
+              <source srcSet={SOLAR_PHOTOS.closeup.webp} type="image/webp" />
+              <img src={SOLAR_PHOTOS.closeup.jpg} alt={SOLAR_PHOTOS.closeup.alt} width={SOLAR_PHOTOS.closeup.w} height={SOLAR_PHOTOS.closeup.h} loading="lazy" className="w-full h-full min-h-[220px] object-cover group-hover:scale-[1.03] transition-transform duration-500" />
+            </picture>
+            <div className="md:col-span-3 p-6 md:p-10 flex flex-col justify-center">
+              <span className="self-start bg-[#DF2227] text-[0.6rem] font-mono tracking-[0.2em] px-2.5 py-1 mb-4">FEATURED · FOR HIRE</span>
+              <h2 className="font-display text-2xl md:text-3xl font-bold tracking-tight">{SOLAR_CAM.name}</h2>
+              <p className="text-white/65 mt-2 max-w-[520px]">Self-powered security camera on weekly hire for building sites — no power or internet needed. We install it, you watch from your phone.</p>
+              <span className="mt-5 text-sm font-semibold text-[#DF2227] group-hover:underline">See how hire works →</span>
+            </div>
+          </Link>
         </div>
       </section>
 

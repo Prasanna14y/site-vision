@@ -43,13 +43,14 @@ const AUDIENCES = [
       "Access control",
       "Perimeter detection",
       "ANPR number-plate cameras",
-      "Solar 4G/5G site cameras",
+      "Solar Cam hire for building sites",
       "Security fog systems",
       "Data & phone cabling",
     ],
     links: [
       { label: "Commercial", to: "/industries/commercial" },
       { label: "Construction sites", to: "/industries/construction" },
+      { label: "Solar Cam hire", to: "/solar-cam" },
       { label: "Farm & rural", to: "/industries/farm" },
     ],
   },
@@ -57,7 +58,7 @@ const AUDIENCES = [
 
 const SERVICES: [string, string][] = [
   ["CCTV Installation", "HD, ultra-HD, and IP camera systems designed around your property."],
-  ["Solar Camera Installation", "Off-grid 4G/5G cameras for sites with no power or internet."],
+  ["Solar Cam Hire", "Weekly hire of our self-powered Solar Cam for building sites."],
   ["Alarm Installation", "Wired, wireless, and remotely monitored intruder alarms."],
   ["Alarm Monitoring", "Melbourne monitoring centre operating to ASIAL Australian Standards, Grade A1."],
   ["Access Control", "Control exactly who can enter your property, and when."],

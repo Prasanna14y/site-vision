@@ -5,6 +5,7 @@ import { BUSINESS, telHref } from "../lib/business";
 type NavItem = {
   label: string;
   path: string;
+  badge?: string;
   children?: { label: string; path: string; hash?: string }[];
 };
 
@@ -19,6 +20,7 @@ const navItems: NavItem[] = [
     ],
   },
   { label: "Products", path: "/products" },
+  { label: "Solar Cam Hire", path: "/solar-cam", badge: "HIRE" },
   { label: "About", path: "/about" },
   { label: "Contact", path: "/contact" },
 ];
@@ -64,18 +66,21 @@ export default function Header() {
               <div key={item.path} className="relative group">
                 <Link
                   to={item.path}
-                  className={`relative inline-flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-200 ${
+                  className={`relative inline-flex items-center gap-1 px-2.5 xl:px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors duration-200 ${
                     isActive(item.path)
                       ? "text-[#DF2227]"
                       : "text-[#1A1A1A] hover:text-[#DF2227]"
                   }`}
                 >
                   {item.label}
+                  {item.badge && (
+                    <span className="ml-1 bg-[#DF2227] text-white text-[0.55rem] font-mono font-bold tracking-wider px-1.5 py-0.5 leading-none">{item.badge}</span>
+                  )}
                   {item.children && (
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="transition-transform group-hover:rotate-180"><polyline points="6 9 12 15 18 9" /></svg>
                   )}
                   {isActive(item.path) && (
-                    <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#DF2227]" />
+                    <span className="absolute bottom-0 left-2.5 right-2.5 xl:left-3 xl:right-3 h-0.5 bg-[#DF2227]" />
                   )}
                 </Link>
                 {item.children && (
@@ -103,7 +108,7 @@ export default function Header() {
             {BUSINESS.phoneDisplay && (
 <a
               href={telHref()}
-              className="text-sm font-semibold text-[#1A1A1A] hover:text-[#DF2227] transition-colors"
+              className="hidden xl:inline text-sm font-semibold text-[#1A1A1A] hover:text-[#DF2227] transition-colors whitespace-nowrap"
             >
               {BUSINESS.phoneDisplay}
             </a>
@@ -149,6 +154,9 @@ export default function Header() {
                 }`}
               >
                 {item.label}
+                {item.badge && (
+                  <span className="ml-2 bg-[#DF2227] text-white text-[0.55rem] font-mono font-bold tracking-wider px-1.5 py-0.5 align-middle">{item.badge}</span>
+                )}
               </Link>
               {item.children?.map((c) => (
                 <Link

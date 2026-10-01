@@ -1,160 +1,193 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import CameraFeed from "../components/CameraFeed";
-import { PHOTOS } from "../lib/photos";
 import { BUSINESS, canonical, telHref } from "../lib/business";
+import { StructuredData } from "../components/StructuredData";
+import { SOLAR_CAM, SOLAR_PHOTOS, SOLAR_POINTS } from "../lib/solarCam";
 
 export const Route = createFileRoute("/solar-cam")({
   head: () => ({
     meta: [
-      { title: "Solar Cam 4K — Site Vision Security" },
-      { name: "description", content: "Solar-powered 4G/5G security camera with 4K HDR, colour night vision, two-way audio, and siren/strobe deterrence. No mains power needed. Ideal for construction sites and remote properties." },
-      { property: "og:title", content: "Solar Cam 4K — Site Vision Security" },
+      { title: `${SOLAR_CAM.name} — Solar Security Camera Hire for Building Sites | Melbourne` },
+      { name: "description", content: "Hire a solar-powered security camera for your building site by the week. No site power or internet needed — installed, monitored from your phone, and moved as your build progresses. Melbourne & Victoria." },
+      { property: "og:title", content: `${SOLAR_CAM.name} — Weekly Hire for Building Sites` },
+      { property: "og:image", content: SOLAR_PHOTOS.site.jpg },
     ],
     links: [canonical("/solar-cam")],
   }),
   component: SolarCamPage,
 });
 
-const features = [
-  {
-    title: "No Mains Power Required",
-    desc: "A high-efficiency 20W solar panel and 10,000mAh battery keep the camera running for 7-10 days without direct sunlight. No electrician, no trenching, no power bills.",
-    icon: "sun",
-  },
-  {
-    title: "4K HDR Colour Night Vision",
-    desc: "Advanced starlight sensor delivers full-colour footage in near-total darkness (0.01 lux). See faces, vehicle plates, and clothing details — not grayscale silhouettes.",
-    icon: "moon",
-  },
-  {
-    title: "Two-Way Audio with Noise Cancellation",
-    desc: "Speak directly through the camera to challenge intruders or talk to delivery drivers. Built-in noise cancellation ensures clear audio even in wind or traffic.",
-    icon: "mic",
-  },
-  {
-    title: "Siren & Strobe Deterrence",
-    desc: "When motion is detected, the 100dB siren and high-intensity LED strobe activate automatically — a proven deterrent that drives intruders off before a crime occurs.",
-    icon: "bell",
-  },
-  {
-    title: "4G/5G Cellular Connectivity",
-    desc: "No WiFi, no Ethernet, no broadband required. Each camera has its own SIM and connects directly to the Telstra/Optus/Vodafone network. Deploy anywhere there's mobile coverage.",
-    icon: "signal",
-  },
-  {
-    title: "Rapid Deployment",
-    desc: "Mount on a wall, pole, or our freestanding solar pole kit. Installation takes under an hour per camera. No cables, no disruption, no wait for utility connections.",
-    icon: "zap",
-  },
+const STEPS = [
+  ["Book", "Tell us your site address, start date, and how many cameras you need."],
+  ["We install", "Our team sets the Solar Cam up on site — no power or cabling required."],
+  ["Site protected", "Watch live from your phone and get alerts while the warning sign and siren deter intruders."],
+  ["Move or collect", "As the build progresses we can reposition it — and collect it when the job's done."],
 ];
 
-const specs = [
-  { label: "Resolution", value: "4K HDR (3840×2160) @ 15fps" },
-  { label: "Night Vision", value: "Full colour, 0.01 lux starlight sensor" },
-  { label: "Lens", value: "120° wide-angle, f/1.6 aperture" },
-  { label: "Detection", value: "PIR + AI motion (human/vehicle/animal)" },
-  { label: "Audio", value: "Two-way with noise cancellation" },
-  { label: "Deterrent", value: "100dB siren + LED strobe" },
-  { label: "Battery", value: "10,000mAh LiFePO4 (7-10 day reserve)" },
-  { label: "Solar Panel", value: "20W monocrystalline" },
-  { label: "Connectivity", value: "4G LTE / 5G (auto failover)" },
-  { label: "SIM", value: "Included with annual plan" },
-  { label: "Storage", value: "Cloud — 7/30/90 day retention" },
-  { label: "Weather Rating", value: "IP67 — dust, rain, hail proof" },
-  { label: "Operating Temp", value: "-20°C to +60°C" },
-  { label: "Dimensions", value: "180×120×100mm (camera head)" },
-  { label: "Weight", value: "2.8kg (including battery)" },
+const WHO = ["Builders & developers", "Home builders", "Civil & infrastructure", "Renovation sites", "Vacant land & properties", "Equipment & material yards"];
+
+const FAQS = [
+  ["How does the weekly hire work?", "You hire the Solar Cam by the week for as long as your job runs. We deliver and install it, and collect it when you're finished. Contact us for current hire rates."],
+  ["Do I need power or internet on site?", "No. The Solar Cam runs on its own solar panel and battery and connects over the mobile network — no site power, NBN, or Wi-Fi needed."],
+  ["Can I see the camera on my phone?", "Yes. You can view the site live and receive alerts from your phone, wherever you are."],
+  ["Can you move it as the build changes?", "Yes. As your site changes we can reposition the camera to keep the right areas covered."],
+  ["How many cameras do I need?", "It depends on your site's size and layout. Tell us about the site and we'll recommend how many — usually one or two for a standard home build."],
+  ["Where do you deliver?", "We service building sites across Melbourne and regional Victoria, from our base in Hallam."],
 ];
+
+const FAQ_LD = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
+});
+
+function Pic({ p, className = "", eager = false }: { p: (typeof SOLAR_PHOTOS)[keyof typeof SOLAR_PHOTOS]; className?: string; eager?: boolean }) {
+  return (
+    <picture>
+      <source srcSet={p.webp} type="image/webp" />
+      <img src={p.jpg} alt={p.alt} width={p.w} height={p.h} loading={eager ? "eager" : "lazy"} decoding="async" className={className} />
+    </picture>
+  );
+}
 
 function SolarCamPage() {
+  const enquire = { product: SOLAR_CAM.enquiry };
   return (
     <div>
+      <StructuredData json={FAQ_LD} />
+
       {/* Hero */}
-      <section className="section-padding bg-[#1A1A1A] text-white relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10" style={{
-          backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(223,34,39,0.3) 0%, transparent 50%)'
-        }} />
-        <div className="content-container relative z-10">
-          <div className="eyebrow text-white/40 mb-3">Featured Product</div>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight">Solar Cam 4K</h1>
-                <span className="text-[0.6rem] font-mono tracking-widest bg-[#DF2227] text-white px-2 py-1">BEST SELLER</span>
-              </div>
-              <p className="text-lg text-white/60 mt-4 leading-relaxed">
-                The security camera that needs nothing but sunlight. No mains power, no WiFi, no electrician. Just 4K protection, anywhere.
-              </p>
-              <div className="flex flex-wrap gap-4 mt-8">
-                <Link to="/quote" className="btn-filled text-base inline-flex">Get a Free Quote <span className="arrow">→</span></Link>
-                {BUSINESS.phoneDisplay && <a href={telHref()} className="btn-outline text-base border-white/30 text-white hover:bg-white hover:text-[#1A1A1A]">{BUSINESS.phoneDisplay}</a>}
-              </div>
+      <section className="relative bg-[#111] text-white overflow-hidden">
+        <div className="absolute inset-0">
+          <Pic p={SOLAR_PHOTOS.site} eager className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#111]/95 via-[#111]/75 to-[#111]/20" />
+        </div>
+        <div className="content-container relative py-20 md:py-28 lg:py-36">
+          <div className="max-w-xl">
+            <span className="inline-block bg-[#DF2227] text-white text-[0.65rem] font-mono tracking-[0.2em] px-3 py-1.5 mb-6">
+              {SOLAR_CAM.offer.toUpperCase()}
+            </span>
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.02]">
+              {SOLAR_CAM.name}
+            </h1>
+            <p className="mt-5 text-lg text-white/75 leading-relaxed">
+              A self-powered security camera for your building site. No power, no internet, no fuss — we install it, you watch from your phone, and thieves see they're being watched.
+            </p>
+            <div className="flex flex-wrap gap-3 mt-8">
+              <Link to="/quote" search={enquire} className="btn-filled text-base">Book a Solar Cam <span className="arrow">→</span></Link>
+              {BUSINESS.phoneDisplay && (
+                <a href={telHref()} className="btn-outline text-base border-white/40 text-white hover:bg-white hover:text-[#1A1A1A]">Call {BUSINESS.phoneDisplay}</a>
+              )}
             </div>
-            <CameraFeed cam="SOLAR-01" label="Solar • 4G/5G • off-grid" image={PHOTOS["solar-cam"]} alt="Site Vision solar security camera installed on a pole" className="border border-white/10">
-              <svg width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="rgba(223,34,39,0.6)" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-              </svg>
-            </CameraFeed>
           </div>
         </div>
       </section>
 
-      {/* Features */}
+      {/* Benefits */}
       <section className="section-padding bg-white">
         <div className="content-container">
-          <div className="text-center mb-14">
-            <div className="eyebrow mb-3">Features</div>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-[#1A1A1A] tracking-tight">Everything you need, nothing you don't</h2>
+          <div className="max-w-2xl mb-12">
+            <div className="eyebrow mb-3">Why hire a Solar Cam</div>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-[#1A1A1A] tracking-tight">Site security without the setup</h2>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {features.map((f, i) => (
-              <div key={i} className="border border-[#E5E5E5] p-6">
-                <div className="w-10 h-10 border border-[#E5E5E5] flex items-center justify-center mb-4">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#DF2227" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    {f.icon === "sun" && <><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></>}
-                    {f.icon === "moon" && <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>}
-                    {f.icon === "mic" && <><rect x="6" y="2" width="12" height="12" rx="3"/><path d="M12 18v4"/><path d="M8 22h8"/><path d="M16 14a4 4 0 01-8 0"/></>}
-                    {f.icon === "bell" && <><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></>}
-                    {f.icon === "signal" && <><path d="M2 15s3-6 10-6 10 6 10 6"/><path d="M6 12s2-3 6-3 6 3 6 3"/><path d="M10 9s1-1 2-1 2 1 2 1"/></>}
-                    {f.icon === "zap" && <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>}
-                  </svg>
-                </div>
-                <h3 className="font-semibold text-[#1A1A1A] text-sm mb-2">{f.title}</h3>
-                <p className="text-sm text-[#4A4A4A] leading-relaxed">{f.desc}</p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#E5E5E5] border border-[#E5E5E5]">
+            {SOLAR_POINTS.map((pt, i) => (
+              <div key={pt.title} className="bg-white p-6 lg:p-8">
+                <div className="font-mono text-xs text-[#DF2227] mb-3">0{i + 1}</div>
+                <h3 className="font-display text-lg font-bold text-[#1A1A1A] mb-2">{pt.title}</h3>
+                <p className="text-sm text-[#4A4A4A] leading-relaxed">{pt.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Specs */}
+      {/* Photo + how hire works */}
       <section className="section-padding bg-[#F5F5F5]">
-        <div className="content-container">
-          <div className="text-center mb-12">
-            <div className="eyebrow mb-3">Technical Specifications</div>
-            <h2 className="font-display text-3xl md:text-4xl font-bold text-[#1A1A1A] tracking-tight">Built for Australian conditions</h2>
+        <div className="content-container grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <Pic p={SOLAR_PHOTOS.tower} className="w-full max-h-[620px] object-cover" />
+          <div>
+            <div className="eyebrow mb-3">How hire works</div>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-[#1A1A1A] tracking-tight mb-8">Up and running on your site</h2>
+            <ol className="space-y-6">
+              {STEPS.map(([title, body], i) => (
+                <li key={title} className="flex gap-4">
+                  <span className="w-9 h-9 shrink-0 bg-[#1A1A1A] text-white font-display font-bold flex items-center justify-center">{i + 1}</span>
+                  <div>
+                    <h3 className="font-display font-bold text-[#1A1A1A]">{title}</h3>
+                    <p className="text-sm text-[#4A4A4A] leading-relaxed mt-1">{body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <Link to="/quote" search={enquire} className="btn-filled text-base mt-10 inline-flex">Check availability <span className="arrow">→</span></Link>
           </div>
-          <div className="max-w-3xl mx-auto bg-white border border-[#E5E5E5] divide-y divide-[#E5E5E5]">
-            {specs.map((s, i) => (
-              <div key={i} className="flex items-center justify-between px-5 py-3">
-                <span className="text-sm font-mono text-[#4A4A4A]">{s.label}</span>
-                <span className="text-sm text-[#1A1A1A] font-medium text-right">{s.value}</span>
-              </div>
+        </div>
+      </section>
+
+      {/* Gallery */}
+      <section className="section-padding bg-white">
+        <div className="content-container">
+          <div className="eyebrow mb-3">Gallery</div>
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-[#1A1A1A] tracking-tight mb-10">The {SOLAR_CAM.short} on site</h2>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
+            <Pic p={SOLAR_PHOTOS.closeup} className="col-span-2 w-full h-full aspect-[3/2] object-cover" />
+            <Pic p={SOLAR_PHOTOS.tower2} className="w-full h-full aspect-[2/3] lg:row-span-2 object-cover" />
+            <Pic p={SOLAR_PHOTOS.tower} className="w-full h-full aspect-[2/3] lg:row-span-2 object-cover" />
+            <Pic p={SOLAR_PHOTOS.detail} className="col-span-2 w-full h-full aspect-[3/2] object-cover" />
+          </div>
+        </div>
+      </section>
+
+      {/* Who it's for */}
+      <section className="section-padding bg-[#1A1A1A] text-white">
+        <div className="content-container grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <div className="font-mono text-xs tracking-[0.2em] text-[#DF2227] uppercase mb-3">Who it's for</div>
+            <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight">Made for building sites</h2>
+            <p className="mt-4 text-white/60 max-w-[460px]">
+              Materials, tools, and machinery are left on site overnight and on weekends. The {SOLAR_CAM.short} keeps an eye on them when you can't.
+            </p>
+          </div>
+          <ul className="grid grid-cols-2 gap-3">
+            {WHO.map((w) => (
+              <li key={w} className="border border-white/15 px-4 py-3 text-sm font-medium">{w}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="section-padding bg-[#F5F5F5]">
+        <div className="content-container max-w-3xl mx-auto">
+          <div className="text-center mb-10">
+            <div className="eyebrow mb-3">FAQ</div>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-[#1A1A1A] tracking-tight">Solar Cam hire questions</h2>
+          </div>
+          <div className="space-y-3">
+            {FAQS.map(([q, a]) => (
+              <details key={q} className="group bg-white border border-[#E5E5E5]">
+                <summary className="flex items-center justify-between p-5 cursor-pointer list-none">
+                  <span className="font-semibold text-sm md:text-base text-[#1A1A1A] pr-4">{q}</span>
+                  <svg className="w-4 h-4 shrink-0 text-[#4A4A4A] transition-transform duration-200 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>
+                </summary>
+                <div className="px-5 pb-5"><p className="text-sm text-[#4A4A4A] leading-relaxed">{a}</p></div>
+              </details>
             ))}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-[#1A1A1A] section-padding">
-        <div className="content-container text-center">
-          <h2 className="text-3xl md:text-4xl font-bold font-display text-white tracking-tight mb-4">Ready to go solar?</h2>
-          <p className="text-white/60 max-w-[500px] mx-auto mb-6">Get a fast quote and site assessment. We'll have your first camera online within 48 hours of approval.</p>
-          <Link to="/quote" className="btn-filled text-base">Get a Quote <span className="arrow">→</span></Link>
+      <section className="section-padding bg-white text-center">
+        <div className="content-container">
+          <h2 className="font-display text-3xl md:text-4xl font-bold text-[#1A1A1A] tracking-tight mb-3">Secure your site this week</h2>
+          <p className="text-[#4A4A4A] mb-7 max-w-[520px] mx-auto">Tell us where and when — we'll confirm availability and hire rates.</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link to="/quote" search={enquire} className="btn-filled">Book a Solar Cam <span className="arrow">→</span></Link>
+            {BUSINESS.phoneDisplay && <a href={telHref()} className="btn-outline">Call {BUSINESS.phoneDisplay}</a>}
+          </div>
         </div>
       </section>
     </div>
   );
 }
-
-

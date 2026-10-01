@@ -26,7 +26,7 @@ export const Route = createFileRoute("/industries/construction")({
               <h2 className="text-2xl md:text-3xl font-bold font-display text-[#1A1A1A] tracking-tight mb-6">Built for the build site</h2>
               <p className="text-base text-[#4A4A4A] leading-relaxed mb-4">Construction sites are open, unpowered, and constantly changing — which makes them the hardest property type to secure. Site Vision's solar camera poles deploy anywhere on site in under an hour, with no trenching, no sparky, and no site WiFi. When the project moves to the next phase, the cameras move with it.</p>
               <p className="text-base text-[#4A4A4A] leading-relaxed mb-6">Each camera tower is self-contained: solar panel, battery, 4G modem, 4K camera with colour night vision, and a siren/strobe deterrent. No external cables. No data costs — we include the SIM.</p>
-              <Link to="/quote" className="btn-filled">Get a Site Quote <span className="arrow">→</span></Link>
+              <Link to="/solar-cam" className="btn-filled">Hire a Solar Cam <span className="arrow">→</span></Link>
             </div>
             <div className="bg-[#F5F5F5] p-6 lg:p-8">
               <div className="text-[0.65rem] font-mono tracking-[0.15em] text-[#DF2227] uppercase mb-4">Key Benefits</div>
