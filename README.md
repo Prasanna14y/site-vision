@@ -1,97 +1,116 @@
-# Site Vision Security — website
+# Site Vision Security: Website
 
-> **Client?** Start with **[HANDOVER.md](HANDOVER.md)** (go-live steps + how to update the site) and **[SEO-PLAN.md](SEO-PLAN.md)**.
+Source code for the **Site Vision Security** website: security cameras, alarms, access control, monitoring and Solar Cam hire, based in Hallam, Melbourne.
 
-The website for **Site Vision Security**: security systems, installation, and monitoring in Hallam, Melbourne.
+> **Business owner?** Start with **[HANDOVER.md](HANDOVER.md)** (go-live steps and how to update the site) and **[SEO-PLAN.md](SEO-PLAN.md)** (the 6-month SEO roadmap).
+> The ready-to-upload website is attached to the **[latest release](../../releases/latest)**.
 
-**Stack:** TanStack Start (React 19 + Vite), Tailwind CSS v4. It builds to a Cloudflare Worker.
+- **Live preview:** https://prasanna14y.github.io/site-vision-preview/
+- **Hosting:** HostGator (cPanel), as a static HTML site with two small PHP endpoints
+- **Stack:** React 19 · TanStack Start · Vite · Tailwind CSS v4 · PHP 8.1+ (chat + quote form)
+
+---
+
+## Requirements
+
+| Tool | Needed for |
+|---|---|
+| **Node.js 20+** and npm | Developing and building the site |
+| **Composer** (+ PHP 8.1+) | Bundling the PHP chat endpoint (`npm run build:static` runs `composer install` automatically) |
+| `zip` | Packaging the HostGator upload (pre-installed on macOS/Linux) |
 
 ## Quick start
 
 ```bash
 npm install
-npm run dev          # http://localhost:5317
+npm run dev            # http://localhost:5317
 ```
+
+## Commands
+
+| Command | What it does |
+|---|---|
+| `npm run dev` | Local development server at http://localhost:5317 |
+| `npm run build:static` | **HostGator build.** Pre-renders every page to HTML, adds `.htaccess`, `404.html` and the PHP endpoints, and writes `deploy/site-vision-hostgator.zip` |
+| `npm run photos` | Imports photos from `install-photos/` (resized, with GPS data stripped) |
+| `npm run preview:html` | Rebuilds the single-file preview `preview/Site-Vision-Security-Preview.html` (needs `npm run dev` running) |
+| `npm run typecheck` | TypeScript check |
+| `npm run build` | Server build (Cloudflare Workers). Not used for HostGator |
+
+---
 
 ## Where things live
 
 | What | Where |
 |---|---|
-| Business details (phone, email, address, hours, socials, licence) | `src/lib/business.ts`. Leave a field empty (`""`) to hide it on the site. |
-| Product catalogue (Products page) | `src/lib/catalogue.ts` |
-| Pages | `src/routes/` (`services.tsx`, `products.tsx`, `quote.tsx`, the `industries/*` detail pages, …) |
-| Header / footer / sticky mobile bar | `src/components/` |
-| Logo splash on the home page | `src/components/LogoIntro.tsx` (timing in `src/styles.css`, under "Home logo splash") |
+| Business details: phone, email, address, hours, socials, licence, ABN, domain (`siteUrl`), stats | `src/lib/business.ts`. A field left empty (`""`) is hidden on the site |
+| Product catalogue | `src/lib/catalogue.ts` |
+| Solar Cam name, selling points, photos | `src/lib/solarCam.ts` (photos in `public/assets/solar/`) |
+| FAQ (home page, Solar Cam page and chat assistant) | `src/lib/faq.ts` |
+| "Sites we've secured" scrolling strip | `src/components/ClientMarquee.tsx` |
+| Pages | `src/routes/`, one file per page; service detail pages in `src/routes/industries/` |
+| Header, footer, mobile action bar, logo splash | `src/components/` |
+| Styles, animations, mobile swipe rows | `src/styles.css` |
+| Logos, favicon, photos, chat widget | `public/assets/` |
+| PHP endpoints (HostGator) | `php/` |
 | Brand logo pack (SVG/PNG/PDF/EPS, colours, fonts) | `brand/` |
-| Logos used by the site | `public/assets/logo/`, `public/assets/favicon.svg` |
 
-## Adding install photos
+## Install photos
 
-1. Put photos in `install-photos/` named `hero`, `residential`, `commercial`, `construction`, `farm`, `solar-cam` (`.jpg`, `.png`, `.heic` or `.webp`). See `install-photos/README.txt`.
-2. Run:
-   ```bash
-   npm run photos
-   ```
-   This resizes them into `public/assets/photos/` and updates `src/lib/photos.ts`. A slot with no photo keeps its styled camera-feed panel.
+Put photos in `install-photos/` named `hero`, `residential`, `commercial`, `construction`, `farm` or `solar-cam` (`.jpg`, `.png`, `.heic` or `.webp`), then run `npm run photos`. They are resized into `public/assets/photos/` and `src/lib/photos.ts` is updated. A slot with no photo keeps its styled camera-feed panel.
 
-## Client preview (single HTML file)
+The Solar Cam gallery uses `public/assets/solar/installs/` (listed in `src/lib/solarCam.ts`).
 
-`preview/Site-Vision-Security-Preview.html` is the whole site in one file, with styles and images built in. Anyone can open it in a browser.
+---
 
-To rebuild it after changes, keep `npm run dev` running in one terminal and run this in another:
-
-```bash
-npm run preview:html
-```
-
-## AI chat assistant
-
-A chat bubble on every page (`public/assets/chat-widget.js`). It calls `POST /api/chat` (`src/routes/api/chat.ts`), which asks Claude (`claude-opus-5-5`, low effort, short replies). Claude's instructions and knowledge are built from the site's own data in `src/lib/assistant.server.ts`, so answers stay in sync with the pages. It never quotes prices or specs.
-
-- **Turn on AI answers:** set the `ANTHROPIC_API_KEY` secret.
-  - Locally: `ANTHROPIC_API_KEY=... npm run dev`
-  - Cloudflare: `npx wrangler secret put ANTHROPIC_API_KEY`
-- **Without a key** (and in the single-file preview), the widget answers from the FAQ (`src/lib/faq.ts`) instead.
-- **Before launch,** add rate limiting for `/api/chat`, for example a Cloudflare WAF rate-limit rule, to cap API spend.
-
-## Hosting on HostGator (cPanel / shared hosting)
-
-HostGator can't run the Node server, so the site is pre-rendered to plain HTML:
+## Deploying to HostGator
 
 ```bash
 npm run build:static
 ```
 
-This creates `deploy/site-vision-hostgator.zip` (a copy of `dist/client/`), which contains every page as `index.html`, `sitemap.xml`, `robots.txt`, `404.html` and `.htaccess`.
+Upload `deploy/site-vision-hostgator.zip` to `public_html` and extract it. Then place the settings file `sitevision-config.php` (from `php/sitevision-config.example.php`) in the cPanel home folder, **one level above** `public_html`. The full step-by-step guide is in **[HANDOVER.md](HANDOVER.md#1-go-live-on-hostgator-first-time)**.
 
-1. In cPanel, open **File Manager** and go to `public_html` for the domain. Back up and remove any old site files there.
-2. **Upload** `site-vision-hostgator.zip`, then right-click it and choose **Extract**. Delete the zip afterwards.
-3. Make sure hidden files are shown (Settings → Show Hidden Files) and that `.htaccess` is there.
-4. In cPanel, open **SSL/TLS Status** and enable AutoSSL. The `.htaccess` file forces HTTPS.
+The package contains:
+- Every page as `…/index.html`, plus `sitemap.xml`, `robots.txt` and `404.html`
+- `.htaccess`: HTTPS redirect, clean URLs, old-URL redirects, caching and compression
+- `api/chat.php` and `api/quote.php`, with private files in `api/lib/` (blocked from the web)
 
-5. **Turn on the chat AI and the quote emails.** Copy `deploy/sitevision-config.example.php` to **`sitevision-config.php`** and put it in the cPanel **home folder**, one level *above* `public_html`, so it can never be downloaded. Fill in:
-   - `anthropic_api_key`: the Claude API key. Leave it empty to keep the chat in FAQ-only mode.
-   - `quote_to`: where quote requests go (default `info@sitevision.au`).
-   - `mail_from`: an email address on the website's domain, for example `website@sitevision.au`. Create it in cPanel → Email Accounts.
-6. In cPanel → **MultiPHP Manager**, set the domain to **PHP 8.1 or newer**.
+> Canonical URLs, the sitemap and structured data use `siteUrl` in `src/lib/business.ts`. Set it to the final domain before building.
 
-How the PHP side works (source in `php/`, packaged into `public_html/api/`):
-- **`api/chat.php`**: the chat assistant. It uses Anthropic's official PHP SDK (`php/composer.json`, bundled in `api/lib/vendor`) with the same instructions as the Node version (`api/lib/assistant-prompt.txt`, generated from `src/lib/assistant.server.ts`). It's limited to 30 messages per 10 minutes per visitor. With no key it returns 503 and the widget answers from the FAQ.
-- **`api/quote.php`**: emails quote requests with PHP `mail()`. It includes a honeypot spam trap and a limit of 5 per hour per visitor. If sending fails, the form falls back to opening the visitor's email app.
-- **`api/lib/`** is blocked from the web by its own `.htaccess`.
-- To change anything, edit the source, run `npm run build:static` again, then re-upload. Composer must be installed; the build runs `composer install` if needed.
+## AI chat assistant
 
-## Build & deploy
+A chat bubble on every page (`public/assets/chat-widget.js`). It sends questions to Claude (`claude-opus-5-5`, low effort, short replies). The assistant's instructions and knowledge are generated from the site's own data in `src/lib/assistant.server.ts`, so answers stay in sync with the pages. It never quotes prices or technical specs.
 
-```bash
-npm run build        # typecheck + production build → dist/
+| Hosting | Endpoint | API key |
+|---|---|---|
+| HostGator | `api/chat.php` (official Anthropic PHP SDK) | `anthropic_api_key` in `sitevision-config.php` |
+| Node / Cloudflare | `POST /api/chat` (`src/routes/api/chat.ts`) | `ANTHROPIC_API_KEY` environment variable / secret |
+
+- With no API key, or offline in the single-file preview, the widget answers from the FAQ instead.
+- The PHP endpoint limits each visitor to 30 messages per 10 minutes. Also set a monthly spend limit at console.anthropic.com.
+
+## Quote form
+
+On HostGator, `api/quote.php` emails each request to `quote_to` (default `info@sitevision.au`) with PHP `mail()`, using the customer's address as Reply-To. It has a honeypot spam trap and allows 5 requests per hour per visitor. If sending fails, or the site isn't on PHP hosting, the form opens the visitor's email app with the details filled in.
+
+---
+
+## Project structure
+
+```
+src/
+  routes/          pages (+ api/chat.ts, sitemap, robots)
+  components/      header, footer, logo splash, sections
+  lib/             business details, catalogue, FAQ, Solar Cam data, assistant prompt
+php/               HostGator endpoints: chat.php, quote.php, lib/bootstrap.php
+public/assets/     logos, photos, chat widget
+scripts/           build helpers (static finish, photo import, single-file export)
+brand/             logo pack
+install-photos/    drop folder for new photos
+preview/           single-file HTML preview of the site
 ```
 
-`wrangler.jsonc` is set up for Cloudflare Workers. The live domain is `sitevision.au`. Canonical URLs and structured data use `siteUrl` in `src/lib/business.ts`.
+## Before launch
 
-## Still to supply
-
-- Install photos (see above)
-- Victorian Private Security Business Licence number, and ABN (`src/lib/business.ts`)
-- New Site Vision social media links (they currently point to the old NS Systems pages)
-- Confirmation of the product range in `src/lib/catalogue.ts`
+See the checklist in **[HANDOVER.md](HANDOVER.md#4-before-launch-still-needed)**. In short: the final domain, the licence number and ABN, the new social links, the product range, and 301 redirects from the old nssystems.com.au site.
