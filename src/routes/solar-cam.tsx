@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BUSINESS, canonical, telHref } from "../lib/business";
 import { StructuredData } from "../components/StructuredData";
-import { SOLAR_CAM, SOLAR_PHOTOS, SOLAR_POINTS } from "../lib/solarCam";
+import { SOLAR_CAM, SOLAR_INSTALLS, SOLAR_PHOTOS, SOLAR_POINTS } from "../lib/solarCam";
 
 export const Route = createFileRoute("/solar-cam")({
   head: () => ({
@@ -40,7 +40,7 @@ const FAQ_LD = JSON.stringify({
   mainEntity: FAQS.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a } })),
 });
 
-function Pic({ p, className = "", eager = false }: { p: (typeof SOLAR_PHOTOS)[keyof typeof SOLAR_PHOTOS]; className?: string; eager?: boolean }) {
+function Pic({ p, className = "", eager = false }: { p: { webp: string; jpg: string; alt: string; w: number; h: number }; className?: string; eager?: boolean }) {
   return (
     <picture>
       <source srcSet={p.webp} type="image/webp" />
@@ -124,16 +124,23 @@ function SolarCamPage() {
         </div>
       </section>
 
-      {/* Gallery */}
-      <section className="section-padding bg-white">
+      {/* Gallery — real installs */}
+      <section id="gallery" className="section-padding bg-white scroll-mt-20">
         <div className="content-container">
-          <div className="eyebrow mb-3">Gallery</div>
-          <h2 className="font-display text-3xl md:text-4xl font-bold text-[#1A1A1A] tracking-tight mb-10">The {SOLAR_CAM.short} on site</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
-            <Pic p={SOLAR_PHOTOS.closeup} className="col-span-2 w-full h-full aspect-[3/2] object-cover" />
-            <Pic p={SOLAR_PHOTOS.tower2} className="w-full h-full aspect-[2/3] lg:row-span-2 object-cover" />
-            <Pic p={SOLAR_PHOTOS.tower} className="w-full h-full aspect-[2/3] lg:row-span-2 object-cover" />
-            <Pic p={SOLAR_PHOTOS.detail} className="col-span-2 w-full h-full aspect-[3/2] object-cover" />
+          <div className="flex flex-wrap items-end justify-between gap-4 mb-10">
+            <div>
+              <div className="eyebrow mb-3">Real installs</div>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-[#1A1A1A] tracking-tight">The {SOLAR_CAM.short} on site</h2>
+              <p className="mt-3 text-[#4A4A4A] max-w-[560px]">Solar Cams protecting building sites around Melbourne.</p>
+            </div>
+            <Link to="/quote" search={enquire} className="btn-outline text-sm">Book one for your site</Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+            {SOLAR_INSTALLS.map((p) => (
+              <div key={p.webp} className="overflow-hidden bg-[#F5F5F5]">
+                <Pic p={p} className="w-full h-full aspect-[3/4] object-cover hover:scale-[1.04] transition-transform duration-500" />
+              </div>
+            ))}
           </div>
         </div>
       </section>

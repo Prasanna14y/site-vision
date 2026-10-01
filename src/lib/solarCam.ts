@@ -26,3 +26,20 @@ export const SOLAR_POINTS = [
   { title: "Installed for you", body: "We set it up on site, and move or collect it as the build progresses." },
   { title: "Simple weekly hire", body: "Hire it for as long as the job runs — no need to buy equipment." },
 ];
+
+// Real Solar Cam installs (photos from the business). GPS/EXIF stripped on import.
+const INSTALL_SIZES: [number, number][] = [
+  [1400, 1050], [1400, 1050], [1050, 1400], [1050, 1400], [1050, 1400], [1050, 1400],
+  [1050, 1400], [1400, 1050], [1050, 1400], [534, 1345], [684, 1400], [1050, 1400],
+];
+
+export const SOLAR_INSTALLS = INSTALL_SIZES.map(([w, h], i) => {
+  const n = `install-${String(i + 1).padStart(2, "0")}`;
+  return {
+    webp: `/assets/solar/installs/${n}.webp`,
+    jpg: `/assets/solar/installs/${n}.jpg`,
+    alt: `Site Vision Solar Cam installed on a Melbourne building site (${i + 1})`,
+    w,
+    h,
+  };
+});

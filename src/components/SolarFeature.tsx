@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { SOLAR_CAM, SOLAR_PHOTOS, SOLAR_POINTS } from "../lib/solarCam";
+import { SOLAR_CAM, SOLAR_INSTALLS, SOLAR_PHOTOS, SOLAR_POINTS } from "../lib/solarCam";
 
 /** Home-page spotlight for the Solar Cam (weekly hire for building sites). */
 export default function SolarFeature() {
@@ -55,6 +55,50 @@ export default function SolarFeature() {
               How hire works
             </Link>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// Phones show 4 (2×2), tablets 3 (one row), desktop all 6 (one row).
+const VISIBILITY = ["", "", "", "md:hidden lg:block", "hidden lg:block", "hidden lg:block"];
+
+/** Home-page strip of real Solar Cam installs, linking to the full gallery. */
+export function SolarInstallsStrip() {
+  const picks = [0, 3, 1, 5, 7, 2].map((i) => SOLAR_INSTALLS[i]);
+  return (
+    <section className="bg-[#111] text-white pb-16 md:pb-20">
+      <div className="content-container">
+        <div className="border-t border-white/10 pt-12 md:pt-14 flex flex-wrap items-end justify-between gap-4 mb-8">
+          <div>
+            <div className="font-mono text-xs tracking-[0.2em] text-[#DF2227] uppercase mb-3">Real installs</div>
+            <h2 className="font-display text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight">The {SOLAR_CAM.short} on site</h2>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <Link to="/solar-cam" hash="gallery" className="btn-outline text-sm border-white/30 text-white hover:bg-white hover:text-[#1A1A1A]">
+              See more photos
+            </Link>
+            <Link to="/solar-cam" className="btn-filled text-sm">
+              Solar Cam hire <span className="arrow">→</span>
+            </Link>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+          {picks.map((p, i) => (
+            <Link
+              key={p.webp}
+              to="/solar-cam"
+              hash="gallery"
+              className={`group overflow-hidden bg-white/5 ${VISIBILITY[i]}`}
+              aria-label="See more Solar Cam install photos"
+            >
+              <picture>
+                <source srcSet={p.webp} type="image/webp" />
+                <img src={p.jpg} alt={p.alt} width={p.w} height={p.h} loading="lazy" decoding="async" className="w-full aspect-[3/4] object-cover group-hover:scale-[1.05] transition-transform duration-500" />
+              </picture>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

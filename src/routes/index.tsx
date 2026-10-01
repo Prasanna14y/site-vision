@@ -4,7 +4,7 @@ import CameraFeed, { HERO_IMAGE } from "../components/CameraFeed";
 import { PHOTOS } from "../lib/photos";
 import { StructuredData } from "../components/StructuredData";
 import LogoIntro from "../components/LogoIntro";
-import SolarFeature from "../components/SolarFeature";
+import SolarFeature, { SolarInstallsStrip } from "../components/SolarFeature";
 import { BRANDS, CATALOGUE } from "../lib/catalogue";
 
 export const Route = createFileRoute("/")({
@@ -29,8 +29,9 @@ function HomePage() {
       {/* Section 1: Hero */}
       <HeroSection />
 
-      {/* Solar Cam spotlight */}
+      {/* Solar Cam spotlight + real installs */}
       <SolarFeature />
+      <SolarInstallsStrip />
 
       {/* Section 2: Trust strip */}
       <TrustStrip />
