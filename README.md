@@ -1,5 +1,7 @@
 # Site Vision Security — website
 
+> **Client?** Start with **[HANDOVER.md](HANDOVER.md)** (go-live steps + how to update the site) and **[SEO-PLAN.md](SEO-PLAN.md)**.
+
 The website for **Site Vision Security**: security systems, installation, and monitoring in Hallam, Melbourne.
 
 **Stack:** TanStack Start (React 19 + Vite), Tailwind CSS v4. It builds to a Cloudflare Worker.
