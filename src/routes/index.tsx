@@ -4,6 +4,7 @@ import CameraFeed, { HERO_IMAGE } from "../components/CameraFeed";
 import { PHOTOS } from "../lib/photos";
 import { StructuredData } from "../components/StructuredData";
 import LogoIntro from "../components/LogoIntro";
+import ClientMarquee from "../components/ClientMarquee";
 import SolarFeature, { SolarInstallsStrip } from "../components/SolarFeature";
 import { BRANDS, CATALOGUE } from "../lib/catalogue";
 
@@ -28,6 +29,9 @@ function HomePage() {
 
       {/* Section 1: Hero */}
       <HeroSection />
+
+      {/* Sites we've secured — scrolling names */}
+      <ClientMarquee />
 
       {/* Solar Cam spotlight + real installs */}
       <SolarFeature />

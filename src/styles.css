@@ -386,3 +386,17 @@ textarea:focus-visible {
   .splash { display: none; }
   .lg-icon-black, .lg-icon-red, .lg-word, .lg-sec, .logo-tagline { opacity: 1; translate: none; scale: none; }
 }
+
+/* ===== "Sites we've secured" marquee ===== */
+.marquee {
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+}
+.marquee-row { animation: marquee 28s linear infinite; }
+.marquee:hover .marquee-row { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-100%); } }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-row { animation: none; }
+  .marquee { flex-wrap: wrap; justify-content: center; }
+  .marquee-row[aria-hidden] { display: none; }
+}
