@@ -24,10 +24,10 @@ export default function Footer() {
   return (
     <footer className="bg-[#1A1A1A] text-white">
       {/* Main footer */}
-      <div className="content-container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="content-container py-12 md:py-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
           {/* Brand column */}
-          <div>
+          <div className="col-span-2 md:col-span-1">
             <Link to="/" className="inline-block mb-4 -ml-2" aria-label="Site Vision Security — home">
               <img src="/assets/logo/main-on-dark.svg" alt="Site Vision Security" width={5835} height={1564} loading="lazy" className="h-14 w-auto" />
             </Link>
@@ -76,7 +76,7 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className="col-span-2 md:col-span-1">
             <h2 className="font-mono text-[0.65rem] tracking-[0.15em] text-white/50 uppercase mb-5">Contact</h2>
             <ul className="space-y-3 text-sm text-white/70">
               {BUSINESS.phoneDisplay && (

@@ -79,8 +79,8 @@
 
 /* Section spacing */
 .section-padding {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
 }
 
 @media (min-width: 768px) {
@@ -399,4 +399,41 @@ textarea:focus-visible {
   .marquee-row { animation: none; }
   .marquee { flex-wrap: wrap; justify-content: center; }
   .marquee-row[aria-hidden] { display: none; }
+}
+
+/* ===== Phones: card grids become a swipeable row =====
+   Add `swipe-mobile` next to a grid's classes; tablets/desktop keep the grid. */
+@media (max-width: 767px) {
+  .swipe-mobile {
+    display: flex !important;
+    gap: 12px !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    margin-inline: -1.5rem;
+    padding-inline: 1.5rem;
+    padding-top: 14px;
+    padding-bottom: 6px;
+    scroll-padding-inline: 1.5rem;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .swipe-mobile::-webkit-scrollbar { display: none; }
+  .swipe-mobile > * {
+    flex: 0 0 80%;
+    scroll-snap-align: start;
+    min-width: 0;
+  }
+  .swipe-mobile.swipe-narrow > * { flex-basis: 62%; }
+  .swipe-hint { display: flex; }
+}
+.swipe-hint {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-top: 10px;
+  font-family: var(--font-mono, monospace);
 }

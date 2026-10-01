@@ -82,9 +82,9 @@ function SolarCamPage() {
             <div className="eyebrow mb-3">Why hire a Solar Cam</div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-[#1A1A1A] tracking-tight">Site security without the setup</h2>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#E5E5E5] border border-[#E5E5E5]">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-[#E5E5E5] border border-[#E5E5E5] swipe-mobile max-md:bg-transparent max-md:border-0">
             {SOLAR_POINTS.map((pt, i) => (
-              <div key={pt.title} className="bg-white p-6 lg:p-8">
+              <div key={pt.title} className="bg-white p-6 lg:p-8 max-md:border max-md:border-[#E5E5E5]">
                 <div className="font-mono text-xs text-[#DF2227] mb-3">0{i + 1}</div>
                 <h3 className="font-display text-lg font-bold text-[#1A1A1A] mb-2">{pt.title}</h3>
                 <p className="text-sm text-[#4A4A4A] leading-relaxed">{pt.body}</p>
@@ -97,7 +97,7 @@ function SolarCamPage() {
       {/* Photo + how hire works */}
       <section className="section-padding bg-[#F5F5F5]">
         <div className="content-container grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <Pic p={SOLAR_PHOTOS.tower} className="w-full max-h-[620px] object-cover" />
+          <Pic p={SOLAR_PHOTOS.tower} className="w-full max-h-[300px] md:max-h-[620px] object-cover" />
           <div>
             <div className="eyebrow mb-3">How hire works</div>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-[#1A1A1A] tracking-tight mb-8">Up and running on your site</h2>
@@ -128,7 +128,7 @@ function SolarCamPage() {
             </div>
             <Link to="/quote" search={enquire} className="btn-outline text-sm">Book one for your site</Link>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+          <div className="grid grid-cols-3 lg:grid-cols-4 gap-2 md:gap-4">
             {SOLAR_INSTALLS.map((p) => (
               <div key={p.webp} className="overflow-hidden bg-[#F5F5F5]">
                 <Pic p={p} className="w-full h-full aspect-[3/4] object-cover hover:scale-[1.04] transition-transform duration-500" />

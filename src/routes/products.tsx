@@ -75,7 +75,7 @@ function ProductsPage() {
 
       {/* Catalogue */}
       <section className="section-padding bg-white">
-        <div className="content-container space-y-16">
+        <div className="content-container space-y-10 md:space-y-16">
           {CATALOGUE.map((cat) => (
             <div key={cat.id} id={cat.id} className="scroll-mt-24">
               <div className="flex items-end justify-between gap-4 mb-6 pb-4 border-b-2 border-[#1A1A1A]">
@@ -89,7 +89,7 @@ function ProductsPage() {
                   </div>
                 </div>
               </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 swipe-mobile">
                 {cat.items.map((item) => (
                   <div key={item.name} className="group border border-[#E5E5E5] p-5 flex flex-col hover:border-[#1A1A1A] transition-colors">
                     <h3 className="font-display text-lg font-bold text-[#1A1A1A]">{item.name}</h3>

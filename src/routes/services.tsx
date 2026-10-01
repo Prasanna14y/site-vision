@@ -132,7 +132,7 @@ function ServicesPage() {
         <div className="content-container">
           <div className="eyebrow mb-3">Everything we do</div>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-[#1A1A1A] tracking-tight mb-10">All services</h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 swipe-mobile">
             {SERVICES.map(([name, desc]) => (
               <div key={name} className="bg-white border border-[#E5E5E5] p-5">
                 <h3 className="font-display text-base font-bold text-[#1A1A1A] mb-1.5">{name}</h3>

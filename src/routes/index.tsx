@@ -216,9 +216,9 @@ function HowItWorks() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 relative">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6 relative swipe-mobile">
           {steps.map((step, i) => (
-            <div key={i} className="relative">
+            <div key={i} className="relative max-md:border max-md:border-[#E5E5E5] max-md:p-5">
               {/* Step number */}
               <div className="text-5xl md:text-6xl font-bold font-display text-[#DF2227] opacity-10 leading-none mb-4">
                 {step.number}
@@ -262,7 +262,7 @@ function ProductTiers() {
   ];
 
   return (
-    <section className="section-padding bg-[#F5F5F5]" id="products">
+    <section className="section-padding bg-[#F5F5F5] hidden md:block" id="products">
       <div className="content-container">
         <div className="text-center mb-14">
           <div className="eyebrow mb-3">Services</div>
@@ -277,7 +277,7 @@ function ProductTiers() {
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-3 gap-6 lg:gap-8 swipe-mobile">
           {tiers.map((tier, i) => (
             <div
               key={i}
@@ -346,7 +346,7 @@ function AiCameras() {
             <Link to="/products" hash="cameras" className="btn-outline text-sm">See cameras</Link>
           </div>
         </div>
-        <div className="lg:col-span-3 grid sm:grid-cols-2 gap-4">
+        <div className="lg:col-span-3 grid sm:grid-cols-2 gap-4 swipe-mobile">
           {features.map((f) => (
             <div key={f.title} className="group relative border border-[#E5E5E5] p-5 hover:border-[#DF2227] transition-colors">
               <f.icon size={22} className="text-[#DF2227] mb-3" aria-hidden="true" />
@@ -377,9 +377,9 @@ function WhyUs() {
           <div className="font-mono text-xs tracking-[0.2em] text-[#DF2227] uppercase mb-3">Why Site Vision</div>
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">Security done properly, by locals</h2>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border border-white/10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border border-white/10 swipe-mobile max-md:bg-transparent max-md:border-0">
           {reasons.map((r) => (
-            <div key={r.title} className="bg-[#1A1A1A] p-6 lg:p-8 group hover:bg-[#222] transition-colors">
+            <div key={r.title} className="bg-[#1A1A1A] p-6 lg:p-8 group hover:bg-[#222] transition-colors max-md:border max-md:border-white/15">
               <r.icon size={26} className="text-[#DF2227] mb-5 group-hover:scale-110 transition-transform" aria-hidden="true" />
               <h3 className="font-display text-lg font-bold mb-2">{r.title}</h3>
               <p className="text-sm text-white/60 leading-relaxed">{r.body}</p>
@@ -408,7 +408,7 @@ function ProductsTeaser() {
           </div>
           <Link to="/products" className="btn-outline text-sm">Browse all products</Link>
         </div>
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 swipe-mobile swipe-narrow">
           {CATALOGUE.map((cat) => (
             <Link
               key={cat.id}
@@ -453,11 +453,12 @@ function ServiceArea() {
               Check coverage for your suburb →
             </Link>
           </div>
-          <div className="md:col-span-3 grid sm:grid-cols-3 gap-6">
+          <div className="md:col-span-3 grid sm:grid-cols-3 gap-5 md:gap-6">
             {AREAS.map((area) => (
               <div key={area.region} className="border-t-2 border-[#1A1A1A] pt-4">
                 <h3 className="font-mono text-[0.65rem] tracking-[0.15em] text-[#DF2227] uppercase mb-3">{area.region}</h3>
-                <ul className="space-y-1.5">
+                <p className="md:hidden text-sm text-[#4A4A4A] leading-relaxed">{area.places.join(" · ")}</p>
+                <ul className="hidden md:block space-y-1.5">
                   {area.places.map((p) => (
                     <li key={p} className="text-sm text-[#4A4A4A]">{p}</li>
                   ))}
@@ -497,7 +498,7 @@ function FAQSection() {
         </div>
 
         <div className="space-y-3">
-          {FAQS.map((faq, i) => (
+          {FAQS.slice(0, 5).map((faq, i) => (
             <details key={i} className="group bg-white border border-[#E5E5E5]">
               <summary className="flex items-center justify-between p-5 cursor-pointer list-none">
                 <span className="font-semibold text-sm md:text-base text-[#1A1A1A] pr-4">{faq.q}</span>
@@ -510,6 +511,29 @@ function FAQSection() {
               </div>
             </details>
           ))}
+          {FAQS.length > 5 && (
+            <details className="group/more">
+              <summary className="list-none cursor-pointer text-center text-sm font-semibold text-[#1A1A1A] py-3 hover:text-[#DF2227]">
+                <span className="group-open/more:hidden">More questions ({FAQS.length - 5}) ↓</span>
+                <span className="hidden group-open/more:inline">Show fewer ↑</span>
+              </summary>
+              <div className="space-y-3 mt-1">
+                {FAQS.slice(5).map((faq, i) => (
+                <details key={i} className="group bg-white border border-[#E5E5E5]">
+                  <summary className="flex items-center justify-between p-5 cursor-pointer list-none">
+                    <span className="font-semibold text-sm md:text-base text-[#1A1A1A] pr-4">{faq.q}</span>
+                    <svg className="w-4 h-4 shrink-0 text-[#4A4A4A] transition-transform duration-200 group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                  </summary>
+                  <div className="px-5 pb-5">
+                    <p className="text-sm text-[#4A4A4A] leading-relaxed">{faq.a}</p>
+                  </div>
+                </details>
+                ))}
+              </div>
+            </details>
+          )}
         </div>
       </div>
     </section>
