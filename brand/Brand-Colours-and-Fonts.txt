@@ -1,0 +1,23 @@
+SITE VISION - BRAND COLOURS & FONTS
+
+Red:    HEX #DF2227 | RGB 223, 34, 39 | CMYK approx 0, 100, 90, 0
+Black:  HEX #040707 | RGB 4, 7, 7     | CMYK approx 75, 65, 60, 90 (rich black)
+White:  HEX #FFFFFF
+
+Fonts (looks like - confirm with your designer):
+"Site Vision" - Montserrat Bold / ExtraBold
+"SECURITY"    - Montserrat Regular, wide letter spacing
+
+FILES
+SVG - website, and editing in design software
+PDF / EPS - printers, sign makers, van wraps, embroidery
+PNG - socials, email, documents (transparent background)
+
+VERSIONS
+1-Main - shield + Site Vision + SECURITY (primary logo)
+2-Short - shield + Site Vision (small spaces, uniforms)
+3-Stacked - square spaces, signs
+4-Icon - profile pictures, favicon, stickers
+FullColour / OnDark (for dark backgrounds) / AllWhite / AllBlack
+
+Note: these vectors were traced from the high-res PNG. Ask your designer for the original master files as well.

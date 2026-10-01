@@ -1,0 +1,388 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600&family=Montserrat:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --spacing: 0.25rem;
+
+  /* Brand palette */
+  --color-brand-red: #DF2227;
+  --color-brand-charcoal: #1A1A1A;
+  --color-brand-grey: #4A4A4A;
+  --color-brand-light-grey: #F5F5F5;
+  --color-brand-border: #E5E5E5;
+  --color-brand-white: #FFFFFF;
+
+  /* Semantic aliases */
+  --color-bg-primary: #FFFFFF;
+  --color-bg-secondary: #F5F5F5;
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #4A4A4A;
+  --color-text-inverse: #FFFFFF;
+  --color-accent: #DF2227;
+  --color-accent-hover: #C41F24;
+  --color-border: #E5E5E5;
+
+  /* Font families */
+  --font-display: 'Montserrat', sans-serif;
+  --font-body: 'Inter Tight', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Radius - sharp (security/tech feel) */
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
+  --radius-2xl: 0;
+  --radius-3xl: 0;
+  --radius-4xl: 0;
+}
+
+/* Base styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    color-scheme: light;
+  }
+
+  body {
+    min-height: 100vh;
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    border-color: var(--color-border);
+  }
+
+  ::selection {
+    background-color: #DF2227;
+    color: #FFFFFF;
+  }
+}
+
+/* Utility classes */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* Section spacing */
+.section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+/* Container */
+.content-container {
+  width: 100%;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .content-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Red underline link animation */
+.link-underline {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #DF2227;
+  transition: width 0.3s ease;
+}
+
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* CTA: red pill button */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  background-color: #DF2227;
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  border: 2px solid #DF2227;
+}
+
+.btn-pill:hover {
+  background-color: #C41F24;
+  border-color: #C41F24;
+  transform: scale(1.02);
+}
+
+.btn-pill:active {
+  transform: scale(0.98);
+}
+
+/* CTA: outlined frame */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  border: 2px solid #DF2227;
+  color: #DF2227;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+  background-color: #DF2227;
+  color: #FFFFFF;
+}
+
+.btn-outline:active {
+  transform: scale(0.98);
+}
+
+/* CTA: filled red block */
+.btn-filled {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 2rem;
+  background-color: #DF2227;
+  color: #FFFFFF;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-filled:hover {
+  background-color: #C41F24;
+}
+
+.btn-filled .arrow {
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.btn-filled:hover .arrow {
+  transform: translateX(4px);
+}
+
+/* CTA: framed block with left border */
+.card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  border-left: 3px solid #DF2227;
+  color: #1A1A1A;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  background-color: transparent;
+  transition: all 0.3s ease;
+}
+
+.card-cta:hover {
+  background-color: #DF2227;
+  color: #FFFFFF;
+  border-left-color: #DF2227;
+}
+
+/* Hero underline draw CTA (for hero) */
+.hero-cta-link {
+  position: relative;
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 1.125rem;
+  color: #1A1A1A;
+  padding-bottom: 4px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.hero-cta-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background-color: #DF2227;
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hero-cta-link:hover {
+  color: #DF2227;
+}
+
+.hero-cta-link:hover::after {
+  width: 100%;
+}
+
+/* Step connector line */
+.step-connector {
+  width: 2px;
+  height: 100%;
+  background-color: #E5E5E5;
+  position: absolute;
+  left: 1rem;
+  top: 2.5rem;
+}
+
+/* Security grid overlay pattern */
+.security-grid {
+  background-image: 
+    linear-gradient(rgba(223, 34, 39, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(223, 34, 39, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Smooth scroll container */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Active nav item */
+.nav-active {
+  color: #DF2227 !important;
+}
+
+.nav-active::after {
+  width: 100% !important;
+}
+
+/* Testimonial styling */
+.testimonial-quote {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: #4A4A4A;
+}
+
+@media (min-width: 768px) {
+  .testimonial-quote {
+    font-size: 1.25rem;
+  }
+}
+
+
+/* Camera-feed scan line */
+@keyframes scan {
+  0% { top: 0%; }
+  100% { top: 100%; }
+}
+
+/* Keyboard focus — visible, on-brand */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #DF2227;
+  outline-offset: 2px;
+}
+
+/* Skip-to-content link */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 100;
+  background: #1A1A1A;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===== Home logo splash =====
+   Logo assembles (0–1.05s), holds 1s, then the splash fades out (2.05–2.6s)
+   and is removed from hit-testing. Pure CSS, so it always finishes. */
+.splash {
+  animation: splash-out 0.55s cubic-bezier(0.65, 0, 0.35, 1) 2.05s forwards;
+}
+.splash-logo {
+  animation: splash-logo-out 0.55s cubic-bezier(0.65, 0, 0.35, 1) 2.05s forwards;
+}
+.splash.splash-skip,
+.splash.splash-skip .splash-logo {
+  animation-delay: 0s;
+  animation-duration: 0.3s;
+}
+@keyframes splash-out {
+  to { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+@keyframes splash-logo-out {
+  to { transform: scale(1.06); }
+}
+
+/* Load-in sequence — whole logo assembles in ~1s.
+   Uses the individual `translate`/`scale` properties so the SVG's own
+   transform attributes are preserved. */
+.lg-icon, .lg-word, .lg-sec { transform-box: fill-box; transform-origin: center; }
+.lg-icon-black { opacity: 0; translate: 0 -260px; animation: lg-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0s forwards; }
+.lg-icon-red { opacity: 0; translate: 0 260px; animation: lg-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards; }
+.lg-word { opacity: 0; translate: 0 140px; animation: lg-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards; }
+.lg-sec { opacity: 0; scale: 1.08 1; animation: lg-in 0.4s ease-out 0.6s forwards; }
+.logo-tagline { opacity: 0; animation: logo-fade 0.3s ease 0.75s forwards; }
+
+@keyframes lg-in { to { opacity: 1; translate: 0 0; scale: 1 1; } }
+@keyframes logo-fade { to { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .splash { display: none; }
+  .lg-icon-black, .lg-icon-red, .lg-word, .lg-sec, .logo-tagline { opacity: 1; translate: none; scale: none; }
+}
