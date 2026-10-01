@@ -23,6 +23,7 @@ export const CATALOGUE: Category[] = [
     blurb: "CCTV cameras for homes, businesses, and remote sites.",
     icon: Cctv,
     items: [
+      { name: "AI Smart Cameras", desc: "Person and vehicle detection for fewer false alerts and faster footage search." },
       { name: "IP Bullet Cameras", desc: "Long-range outdoor cameras for driveways, perimeters, and car parks." },
       { name: "IP Dome & Turret Cameras", desc: "Discreet, vandal-resistant cameras for entries, shopfronts, and ceilings." },
       { name: "PTZ Cameras", desc: "Pan-tilt-zoom cameras to cover large areas and follow movement." },

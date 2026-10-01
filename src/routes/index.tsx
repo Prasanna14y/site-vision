@@ -6,7 +6,8 @@ import { StructuredData } from "../components/StructuredData";
 import LogoIntro from "../components/LogoIntro";
 import ClientMarquee from "../components/ClientMarquee";
 import CountUp from "../components/CountUp";
-import { BadgeCheck, MapPin, Radio, ShieldCheck, Sun, Wrench } from "lucide-react";
+import { FAQS } from "../lib/faq";
+import { BadgeCheck, BellOff, Car, MapPin, Radio, ScanFace, Search, ShieldCheck, Smartphone, Sparkles, Spline, Sun, Wrench } from "lucide-react";
 import { SOLAR_INSTALLS } from "../lib/solarCam";
 import SolarFeature, { SolarInstallsStrip } from "../components/SolarFeature";
 import { BRANDS, CATALOGUE } from "../lib/catalogue";
@@ -47,6 +48,8 @@ function HomePage() {
       <HowItWorks />
 
       {/* Why Site Vision */}
+      <AiCameras />
+
       <WhyUs />
 
       {/* Section 4: Product Tiers */}
@@ -315,6 +318,48 @@ function ProductTiers() {
   );
 }
 
+/* =============== AI CAMERAS =============== */
+function AiCameras() {
+  const features = [
+    { icon: ScanFace, title: "People & vehicle detection", body: "Cameras recognise people and vehicles — so alerts mean something." },
+    { icon: BellOff, title: "Fewer false alarms", body: "Ignores swaying trees, rain, shadows, and animals." },
+    { icon: Smartphone, title: "Smart phone alerts", body: "Get a snapshot on your phone the moment someone enters your property." },
+    { icon: Spline, title: "Tripwires & zones", body: "Draw virtual lines and areas — alerts only when they're crossed after hours." },
+    { icon: Search, title: "Find footage fast", body: "Search hours of recordings for people or vehicles in seconds." },
+    { icon: Car, title: "Number-plate recognition", body: "ANPR cameras log vehicles at gates, driveways, and car parks." },
+  ];
+  return (
+    <section className="section-padding bg-white overflow-hidden">
+      <div className="content-container grid lg:grid-cols-5 gap-12 items-center">
+        <div className="lg:col-span-2">
+          <div className="inline-flex items-center gap-2 bg-[#DF2227]/10 text-[#DF2227] font-mono text-[0.65rem] tracking-[0.2em] uppercase px-3 py-1.5 mb-5">
+            <Sparkles size={12} aria-hidden="true" /> AI-powered security
+          </div>
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-[#1A1A1A] tracking-tight">
+            Cameras that know what they're looking at
+          </h2>
+          <p className="mt-5 text-base md:text-lg text-[#4A4A4A] leading-relaxed">
+            We install AI smart cameras from leading brands like Hikvision and Dahua. They tell the difference between a person, a car, and a tree in the wind — so you get fewer false alerts and faster answers when something happens.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Link to="/quote" className="btn-filled text-sm">Upgrade to AI cameras <span className="arrow">→</span></Link>
+            <Link to="/products" hash="cameras" className="btn-outline text-sm">See cameras</Link>
+          </div>
+        </div>
+        <div className="lg:col-span-3 grid sm:grid-cols-2 gap-4">
+          {features.map((f) => (
+            <div key={f.title} className="group relative border border-[#E5E5E5] p-5 hover:border-[#DF2227] transition-colors">
+              <f.icon size={22} className="text-[#DF2227] mb-3" aria-hidden="true" />
+              <h3 className="font-display font-bold text-[#1A1A1A]">{f.title}</h3>
+              <p className="text-sm text-[#4A4A4A] mt-1 leading-relaxed">{f.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* =============== WHY SITE VISION =============== */
 function WhyUs() {
   const reasons = [
@@ -428,40 +473,6 @@ function ServiceArea() {
 
 /* =============== FAQ =============== */
 /* FAQ content — also emitted as FAQPage structured data for Google. */
-const FAQS = [
-  {
-    q: "What areas do you cover?",
-    a: "We're based in Hallam and work right across Melbourne — especially the south-east (Casey, Cardinia, Dandenong, Frankston) — plus regional Victoria. Get in touch to confirm your location.",
-  },
-  {
-    q: "Do you do homes and businesses?",
-    a: "Both. We've secured 500+ homes and 700+ construction sites, farms, and blocks of land, as well as shops, service stations, food outlets, offices, and warehouses.",
-  },
-  {
-    q: "How does Solar Cam hire work?",
-    a: "You hire the Site Vision Solar Cam by the week for as long as your build runs. We install it on site, you watch it from your phone, and we move or collect it when the job changes or finishes. It needs no site power or internet.",
-  },
-  {
-    q: "Can I just buy the equipment?",
-    a: "Yes. We sell cameras, recorders, alarms, access control, intercoms, cables, and accessories from brands like Hikvision, Dahua, Bosch, Hills, and Honeywell. Send a product enquiry and we'll come back with availability and pricing.",
-  },
-  {
-    q: "Can I see my cameras on my phone?",
-    a: "Yes. Every system comes with app access, so you can view live and recorded footage, get alerts, and arm or disarm your alarm from anywhere.",
-  },
-  {
-    q: "How does alarm monitoring work?",
-    a: "Monitoring runs through a Melbourne monitoring centre operating to ASIAL Australian Standards, Grade A1. When your alarm is triggered, operators assess it and follow the response plan agreed with you — contacting you, your nominated contacts, or emergency services as required.",
-  },
-  {
-    q: "Can you upgrade or take over my existing system?",
-    a: "Often, yes. We'll assess your current cameras or alarm, reuse what's still serviceable, and upgrade the rest — including adding app access or monitoring to an older system.",
-  },
-  {
-    q: "How do I get a quote?",
-    a: "Use the quote form or give us a call. Tell us your suburb, the type of property, and what you want to protect — we'll come back with a recommendation, free and with no obligation.",
-  },
-];
 
 const FAQ_JSON_LD = JSON.stringify({
   "@context": "https://schema.org",

@@ -21,7 +21,7 @@ const AUDIENCES = [
     title: "Residential",
     lead: "Security for houses, townhouses, units, and holiday homes.",
     services: [
-      "CCTV & solar camera installation",
+      "CCTV & AI smart cameras",
       "Home alarm systems",
       "24/7 alarm monitoring",
       "Video intercoms & doorbells",
@@ -38,7 +38,7 @@ const AUDIENCES = [
     title: "Commercial & Industrial",
     lead: "Security for shops, offices, warehouses, factories, construction sites, and farms.",
     services: [
-      "IP / HD CCTV systems",
+      "IP / HD & AI smart CCTV",
       "Intruder alarms & 24/7 monitoring",
       "Access control",
       "Perimeter detection",
@@ -58,6 +58,7 @@ const AUDIENCES = [
 
 const SERVICES: [string, string][] = [
   ["CCTV Installation", "HD, ultra-HD, and IP camera systems designed around your property."],
+  ["AI Smart Cameras", "Person and vehicle detection, smart alerts, tripwires, and fast footage search."],
   ["Solar Cam Hire", "Weekly hire of our self-powered Solar Cam for building sites."],
   ["Alarm Installation", "Wired, wireless, and remotely monitored intruder alarms."],
   ["Alarm Monitoring", "Melbourne monitoring centre operating to ASIAL Australian Standards, Grade A1."],

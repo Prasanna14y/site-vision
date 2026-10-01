@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { BUSINESS, canonical, telHref } from "../lib/business";
 import { StructuredData } from "../components/StructuredData";
 import { SOLAR_CAM, SOLAR_INSTALLS, SOLAR_PHOTOS, SOLAR_POINTS } from "../lib/solarCam";
+import { SOLAR_FAQS as FAQS } from "../lib/faq";
 
 export const Route = createFileRoute("/solar-cam")({
   head: () => ({
@@ -25,14 +26,6 @@ const STEPS = [
 
 const WHO = ["Builders & developers", "Home builders", "Civil & infrastructure", "Renovation sites", "Vacant land & properties", "Equipment & material yards"];
 
-const FAQS = [
-  ["How does the weekly hire work?", "You hire the Solar Cam by the week for as long as your job runs. We deliver and install it, and collect it when you're finished. Contact us for current hire rates."],
-  ["Do I need power or internet on site?", "No. The Solar Cam runs on its own solar panel and battery and connects over the mobile network — no site power, NBN, or Wi-Fi needed."],
-  ["Can I see the camera on my phone?", "Yes. You can view the site live and receive alerts from your phone, wherever you are."],
-  ["Can you move it as the build changes?", "Yes. As your site changes we can reposition the camera to keep the right areas covered."],
-  ["How many cameras do I need?", "It depends on your site's size and layout. Tell us about the site and we'll recommend how many — usually one or two for a standard home build."],
-  ["Where do you deliver?", "We service building sites across Melbourne and regional Victoria, from our base in Hallam."],
-];
 
 const FAQ_LD = JSON.stringify({
   "@context": "https://schema.org",

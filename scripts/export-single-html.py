@@ -89,7 +89,7 @@ def main():
     body = re.sub(r'<source srcSet="(/assets/[^"]+\.webp)" type="image/webp"/>', "", body)
     body = re.sub(r'src="(/assets/(?:solar|photos)/[^"]+)\.jpg"', r'src="\1.webp"', body)
     body = body.replace('src="/assets/hero-security-cam.jpg"', 'src="/assets/hero-security-cam.webp"')
-    assets = ROOT / "assets"
+    assets = ROOT / "public" / "assets"
     body = body.replace("/assets/hero-security-cam.webp", data_uri(assets / "hero-security-cam.webp", "image/webp"))
     body = body.replace("/assets/hero-security-cam.jpg", data_uri(assets / "hero-security-cam.jpg", "image/jpeg"))
     for p in sorted((assets / "photos").glob("*")) if (assets / "photos").exists() else []:
@@ -182,6 +182,14 @@ def main():
 })();
 </script>"""
     email = re.search(r'mailto:([^"?]+)"', footer).group(1)
+
+    # Chat assistant: no server in the single file, so it answers from the FAQ.
+    import json as _json
+    chat_cfg = _json.loads(re.search(r'<script type="application/json" id="sv-chat-config">(.*?)</script>', home, re.S).group(1))
+    chat_cfg.update(endpoint=None, quoteUrl="#page-quote")
+    chat_js = (assets / "chat-widget.js").read_text()
+    chat = ('<script type="application/json" id="sv-chat-config">' + _json.dumps(chat_cfg).replace("<", "\\u003c") + "</script>"
+            + "<script>" + chat_js + "</script>")
     script = script.replace("%EMAIL%", email)
 
     out = f"""<!DOCTYPE html>
@@ -203,6 +211,7 @@ def main():
 <div class="flex flex-col min-h-dvh pb-16 lg:pb-0">{body}</div>
 {action_bar}
 {script}
+{chat}
 </body>
 </html>"""
     OUT.write_text(out)

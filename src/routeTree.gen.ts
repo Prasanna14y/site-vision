@@ -19,6 +19,7 @@ import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SolarCamRouteImport } from './routes/solar-cam'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as IndustriesIndexRouteImport } from './routes/industries/index'
 import { Route as IndustriesCommercialRouteImport } from './routes/industries/commercial'
 import { Route as IndustriesConstructionRouteImport } from './routes/industries/construction'
@@ -75,6 +76,11 @@ const SolarCamRoute = SolarCamRouteImport.update({
   path: '/solar-cam',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndustriesIndexRoute = IndustriesIndexRouteImport.update({
   id: '/industries/',
   path: '/industries/',
@@ -112,6 +118,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solar-cam': typeof SolarCamRoute
+  '/api/chat': typeof ApiChatRoute
   '/industries/commercial': typeof IndustriesCommercialRoute
   '/industries/construction': typeof IndustriesConstructionRoute
   '/industries/farm': typeof IndustriesFarmRoute
@@ -129,6 +136,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solar-cam': typeof SolarCamRoute
+  '/api/chat': typeof ApiChatRoute
   '/industries/commercial': typeof IndustriesCommercialRoute
   '/industries/construction': typeof IndustriesConstructionRoute
   '/industries/farm': typeof IndustriesFarmRoute
@@ -147,6 +155,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/solar-cam': typeof SolarCamRoute
+  '/api/chat': typeof ApiChatRoute
   '/industries/commercial': typeof IndustriesCommercialRoute
   '/industries/construction': typeof IndustriesConstructionRoute
   '/industries/farm': typeof IndustriesFarmRoute
@@ -166,6 +175,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/solar-cam'
+    | '/api/chat'
     | '/industries/commercial'
     | '/industries/construction'
     | '/industries/farm'
@@ -183,6 +193,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/solar-cam'
+    | '/api/chat'
     | '/industries/commercial'
     | '/industries/construction'
     | '/industries/farm'
@@ -200,6 +211,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap.xml'
     | '/solar-cam'
+    | '/api/chat'
     | '/industries/commercial'
     | '/industries/construction'
     | '/industries/farm'
@@ -218,6 +230,7 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SolarCamRoute: typeof SolarCamRoute
+  ApiChatRoute: typeof ApiChatRoute
   IndustriesCommercialRoute: typeof IndustriesCommercialRoute
   IndustriesConstructionRoute: typeof IndustriesConstructionRoute
   IndustriesFarmRoute: typeof IndustriesFarmRoute
@@ -297,6 +310,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SolarCamRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/industries/': {
       id: '/industries/'
       path: '/industries'
@@ -346,6 +366,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SolarCamRoute: SolarCamRoute,
+  ApiChatRoute: ApiChatRoute,
   IndustriesCommercialRoute: IndustriesCommercialRoute,
   IndustriesConstructionRoute: IndustriesConstructionRoute,
   IndustriesFarmRoute: IndustriesFarmRoute,

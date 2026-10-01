@@ -1,7 +1,7 @@
 """Import install photos into the site.
 
 Reads "install-photos/<slot>.<jpg|jpeg|png|heic|webp>",
-writes web-sized copies to assets/photos/<slot>.webp + .jpg (1600px wide),
+writes web-sized copies to public/assets/photos/<slot>.webp + .jpg (1600px wide),
 and regenerates src/lib/photos.ts so the pages pick them up.
 
 Usage: python3 scripts/import-photos.py
@@ -11,7 +11,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "install-photos"
-OUT = ROOT / "assets" / "photos"
+OUT = ROOT / "public" / "assets" / "photos"
 MANIFEST = ROOT / "src" / "lib" / "photos.ts"
 SLOTS = ["hero", "residential", "commercial", "construction", "farm", "solar-cam"]
 EXTS = [".jpg", ".jpeg", ".png", ".heic", ".webp", ".JPG", ".JPEG", ".PNG", ".HEIC", ".WEBP"]

@@ -18,6 +18,16 @@ import MobileActionBar from "../components/MobileActionBar";
 import { StructuredData } from "../components/StructuredData";
 import { BUSINESS } from "../lib/business";
 import { installReveal } from "../lib/reveal";
+import { FAQS, SOLAR_FAQS } from "../lib/faq";
+
+// Settings for the chat assistant (public/assets/chat-widget.js).
+const CHAT_CONFIG = JSON.stringify({
+  endpoint: "/api/chat",
+  quoteUrl: "/quote",
+  phoneDisplay: BUSINESS.phoneDisplay,
+  phoneHref: BUSINESS.phoneHref ? `tel:${BUSINESS.phoneHref}` : "",
+  faqs: [...FAQS, ...SOLAR_FAQS.map(([q, a]) => ({ q, a }))],
+}).replace(/</g, "\\u003c");
 
 // LocalBusiness structured data — lets Google show address, phone, and hours.
 const LOCAL_BUSINESS_JSON_LD = JSON.stringify({
@@ -223,6 +233,8 @@ function RootComponent() {
         <Footer />
       </div>
       <MobileActionBar />
+      <script type="application/json" id="sv-chat-config" dangerouslySetInnerHTML={{ __html: CHAT_CONFIG }} />
+      <script async src="/assets/chat-widget.js" />
     </QueryClientProvider>
   );
 }

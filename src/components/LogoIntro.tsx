@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import stackedLogoRaw from "../../assets/logo/stacked.svg?raw";
+import stackedLogoRaw from "../lib/stacked-logo.svg?raw";
 
 // The official stacked logo, inlined so its parts can animate separately.
 // Wrapper groups: icon / "Site Vision" / "SECURITY"; inside the icon, red and black layers.
