@@ -78,7 +78,7 @@ writeFileSync(
 <a href="/" class="btn-pill">Go Home</a></div></div></body></html>`,
 );
 
-// PHP endpoints for shared hosting: api/chat.php (Claude) + api/quote.php (email).
+// PHP endpoints for shared hosting: api/chat.php (AI chat) + api/quote.php (email).
 const php = path.join(root, "php");
 if (!existsSync(path.join(php, "lib", "vendor", "autoload.php"))) {
   console.log("Installing PHP dependencies (composer)…");

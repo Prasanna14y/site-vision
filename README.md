@@ -81,11 +81,11 @@ The package contains:
 
 ## AI chat assistant
 
-A chat bubble on every page (`public/assets/chat-widget.js`). It sends questions to Claude (`claude-opus-5-5`, low effort, short replies). The assistant's instructions and knowledge are generated from the site's own data in `src/lib/assistant.server.ts`, so answers stay in sync with the pages. It never quotes prices or technical specs.
+A chat bubble on every page (`public/assets/chat-widget.js`). It sends questions to an AI model through Anthropic's API (low effort, short replies). The assistant's instructions and knowledge are generated from the site's own data in `src/lib/assistant.server.ts`, so answers stay in sync with the pages. It never quotes prices or technical specs.
 
 | Hosting | Endpoint | API key |
 |---|---|---|
-| HostGator | `api/chat.php` (official Anthropic PHP SDK) | `anthropic_api_key` in `sitevision-config.php` |
+| HostGator | `api/chat.php` (Anthropic PHP SDK) | `anthropic_api_key` in `sitevision-config.php` |
 | Node / Cloudflare | `POST /api/chat` (`src/routes/api/chat.ts`) | `ANTHROPIC_API_KEY` environment variable / secret |
 
 - With no API key, or offline in the single-file preview, the widget answers from the FAQ instead.

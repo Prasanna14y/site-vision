@@ -6,7 +6,7 @@
 //    e.g. /home/<cpanel-user>/sitevision-config.php — so it can never be downloaded.
 // 3. Fill in the values below.
 return [
-    // Claude API key from https://console.anthropic.com (Settings → API keys).
+    // Anthropic API key from https://console.anthropic.com (Settings → API keys).
     // Leave empty to keep the chat in FAQ-only mode.
     'anthropic_api_key' => '',
 

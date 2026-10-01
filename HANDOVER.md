@@ -18,7 +18,7 @@ Steps in **cPanel**:
 5. **MultiPHP Manager**: set the domain to **PHP 8.1 or newer**.
 6. **Email Accounts**: create a sending address on the domain, for example `website@sitevision.au`.
 7. Rename `sitevision-config.example.php` to **`sitevision-config.php`** and upload it to your **home folder, one level ABOVE `public_html`**, so it can never be downloaded. Fill in:
-   - `anthropic_api_key`: the Claude API key from console.anthropic.com. This turns on AI answers in the chat. Leave it empty for FAQ-only answers.
+   - `anthropic_api_key`: the Anthropic API key from console.anthropic.com. This turns on AI answers in the chat. Leave it empty for FAQ-only answers.
    - `quote_to`: where quote requests are emailed (default `info@sitevision.au`).
    - `mail_from`: the sending address from step 6.
 8. **Test:** open the site, send yourself a test quote, and ask the chat a question.
