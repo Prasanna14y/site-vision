@@ -84,7 +84,11 @@ def main():
     action_bar = rewrite_links(action_bar)
     header_note = ""
 
-    # inline images
+    # inline images — single-file export embeds each photo once (WebP only;
+    # every current browser supports it), so drop the <source> + JPEG fallback.
+    body = re.sub(r'<source srcSet="(/assets/[^"]+\.webp)" type="image/webp"/>', "", body)
+    body = re.sub(r'src="(/assets/(?:solar|photos)/[^"]+)\.jpg"', r'src="\1.webp"', body)
+    body = body.replace('src="/assets/hero-security-cam.jpg"', 'src="/assets/hero-security-cam.webp"')
     assets = ROOT / "assets"
     body = body.replace("/assets/hero-security-cam.webp", data_uri(assets / "hero-security-cam.webp", "image/webp"))
     body = body.replace("/assets/hero-security-cam.jpg", data_uri(assets / "hero-security-cam.jpg", "image/jpeg"))
