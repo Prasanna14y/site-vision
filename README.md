@@ -48,6 +48,7 @@ npm run dev            # http://localhost:5317
 | Solar Cam name, selling points, photos | `src/lib/solarCam.ts` (photos in `public/assets/solar/`) |
 | FAQ (home page, Solar Cam page and chat assistant) | `src/lib/faq.ts` |
 | "Sites we've secured" scrolling strip | `src/components/ClientMarquee.tsx` |
+| Suburb landing pages (`/locations/<suburb>`) | `src/lib/locations.ts`. Every suburb needs its own wording, to avoid Google's "doorway page" penalty |
 | Pages | `src/routes/`, one file per page; service detail pages in `src/routes/industries/` |
 | Header, footer, mobile action bar, logo splash | `src/components/` |
 | Styles, animations, mobile swipe rows | `src/styles.css` |

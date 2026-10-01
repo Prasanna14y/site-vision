@@ -112,7 +112,10 @@ function SolarCamPage() {
                 </li>
               ))}
             </ol>
-            <Link to="/quote" search={enquire} className="btn-filled text-base mt-10 inline-flex">Check availability <span className="arrow">→</span></Link>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Link to="/quote" search={enquire} className="btn-filled text-base inline-flex">Check availability <span className="arrow">→</span></Link>
+              <Link to="/construction-site-camera-hire" className="btn-outline text-base">For builders</Link>
+            </div>
           </div>
         </div>
       </section>

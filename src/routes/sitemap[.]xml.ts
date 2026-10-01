@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { BUSINESS } from '../lib/business'
+import { LOCATIONS } from '../lib/locations'
 
 export const Route = createFileRoute('/sitemap.xml')({
   server: {
@@ -11,6 +12,8 @@ export const Route = createFileRoute('/sitemap.xml')({
           '/', '/services', '/products', '/solar-cam', '/industries/residential',
           '/industries/commercial', '/industries/construction', '/industries/farm',
           '/about', '/contact', '/quote', '/privacy',
+          '/construction-site-camera-hire', '/locations',
+          ...LOCATIONS.map((l) => `/locations/${l.slug}`),
         ]
         const xml = [
           '<?xml version="1.0" encoding="UTF-8"?>',

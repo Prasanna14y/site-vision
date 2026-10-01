@@ -4,8 +4,11 @@ import { useState } from "react";
 
 export const Route = createFileRoute("/quote")({
   // ?product=... pre-fills a product enquiry (from the Products page).
-  validateSearch: (search: Record<string, unknown>): { product?: string } =>
-    typeof search.product === "string" && search.product ? { product: search.product.slice(0, 120) } : {},
+  // ?product=... and/or ?suburb=... pre-fill the form (Products, Solar Cam and location pages).
+  validateSearch: (search: Record<string, unknown>): { product?: string; suburb?: string } => ({
+    ...(typeof search.product === "string" && search.product ? { product: search.product.slice(0, 120) } : {}),
+    ...(typeof search.suburb === "string" && search.suburb ? { suburb: search.suburb.slice(0, 80) } : {}),
+  }),
   head: () => ({
     meta: [
       { title: "Get a Free Quote — Site Vision Security" },
@@ -20,7 +23,7 @@ export const Route = createFileRoute("/quote")({
 function QuotePage() {
   // "sent" = emailed by the server (HostGator PHP); "mailto" = handed to the visitor's email app.
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "mailto">("idle");
-  const { product } = Route.useSearch();
+  const { product, suburb } = Route.useSearch();
 
   // HostGator build: send through api/quote.php. Otherwise — or if that fails —
   // hand the enquiry to the visitor's email app, pre-addressed and filled in.
@@ -120,7 +123,7 @@ function QuotePage() {
                     </div>
                     <div>
                       <label htmlFor="suburb" className="block text-sm font-semibold text-[#1A1A1A] mb-1.5">Suburb *</label>
-                      <input id="suburb" required type="text" autoComplete="address-level2" className="w-full border border-[#E5E5E5] bg-white px-4 py-3 text-sm text-[#1A1A1A] focus:outline-none focus:border-[#DF2227] transition-colors" placeholder="e.g. Berwick" />
+                      <input id="suburb" required type="text" autoComplete="address-level2" defaultValue={suburb} key={suburb ?? "none"} className="w-full border border-[#E5E5E5] bg-white px-4 py-3 text-sm text-[#1A1A1A] focus:outline-none focus:border-[#DF2227] transition-colors" placeholder="e.g. Berwick" />
                     </div>
                   </div>
                   <div className="grid sm:grid-cols-2 gap-5">

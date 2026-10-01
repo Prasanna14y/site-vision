@@ -17,6 +17,8 @@ const navItems: NavItem[] = [
     children: [
       { label: "Residential", path: "/services", hash: "residential" },
       { label: "Commercial & Industrial", path: "/services", hash: "commercial" },
+      { label: "Construction site camera hire", path: "/construction-site-camera-hire" },
+      { label: "Areas we service", path: "/locations" },
     ],
   },
   { label: "Products", path: "/products" },
@@ -43,7 +45,8 @@ export default function Header() {
   const isActive = (path: string) => {
     if (path === "/") return location.pathname === "/";
     // Service detail pages live under /industries/*
-    if (path === "/services") return location.pathname.startsWith("/services") || location.pathname.startsWith("/industries");
+    if (path === "/services")
+      return ["/services", "/industries", "/locations", "/construction-site-camera-hire"].some((p) => location.pathname.startsWith(p));
     return location.pathname.startsWith(path);
   };
 
@@ -139,7 +142,7 @@ export default function Header() {
       <div
         id="mobile-menu"
         className={`lg:hidden overflow-hidden transition-all duration-300 ${
-          mobileOpen ? 'max-h-[560px]' : 'max-h-0'
+          mobileOpen ? 'max-h-[680px]' : 'max-h-0'
         }`}
       >
         <nav className="border-t border-[#E5E5E5] bg-white px-4 py-4 space-y-1">

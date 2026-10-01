@@ -6,6 +6,7 @@ import {
   higgsfieldDesignSourceBabelPlugin,
 } from "./src/module/design-inspector/vite";
 import { defineConfig } from "vite";
+import { LOCATIONS } from "./src/lib/locations";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 
@@ -13,6 +14,8 @@ import tsconfigPaths from "vite-tsconfig-paths";
 const STATIC_PAGES = [
   "/", "/services", "/products", "/solar-cam", "/about", "/contact", "/quote", "/privacy",
   "/industries/residential", "/industries/commercial", "/industries/construction", "/industries/farm",
+  "/construction-site-camera-hire", "/locations",
+  ...LOCATIONS.map((l) => `/locations/${l.slug}`),
   "/sitemap.xml", "/robots.txt",
   "/api/assistant-prompt.txt", // moved into api/lib/ (private) by scripts/finish-static.mjs
 ];

@@ -6,7 +6,8 @@ const industries: { label: string; path: string; hash?: string }[] = [
   { label: "Commercial & Industrial", path: "/services", hash: "commercial" },
   { label: "Construction Sites", path: "/industries/construction" },
   { label: "Farm & Rural", path: "/industries/farm" },
-  { label: "All Services", path: "/services" },
+  { label: "Construction Site Camera Hire", path: "/construction-site-camera-hire" },
+  { label: "Areas We Service", path: "/locations" },
 ];
 
 const products: { label: string; path: string; hash?: string }[] = [

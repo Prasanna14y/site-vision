@@ -13,8 +13,12 @@ ROOT = Path(__file__).resolve().parent.parent
 BASE = "http://localhost:5317"
 OUT = ROOT / "preview" / "Site-Vision-Security-Preview.html"
 
+LOCATION_SLUGS = re.findall(r'slug: "([a-z-]+)"', (ROOT / "src" / "lib" / "locations.ts").read_text())
+
 PAGES = [
-    "/services", "/products", "/solar-cam", "/industries/residential",
+    "/services", "/products", "/solar-cam", "/construction-site-camera-hire", "/locations",
+    *[f"/locations/{s}" for s in LOCATION_SLUGS],
+    "/industries/residential",
     "/industries/commercial", "/industries/construction", "/industries/farm",
     "/about", "/contact", "/quote", "/privacy",
     "/",  # home last: it's the default page when nothing is targeted
@@ -119,12 +123,12 @@ def main():
   var menu=document.getElementById('mobile-menu');
   if(btn&&menu){
     btn.addEventListener('click',function(){
-      var open=menu.classList.toggle('max-h-[560px]');
+      var open=menu.classList.toggle('max-h-[680px]');
       menu.classList.toggle('max-h-0',!open);
       btn.setAttribute('aria-expanded',open);
     });
     menu.addEventListener('click',function(e){
-      if(e.target.closest('a')){menu.classList.remove('max-h-[560px]');menu.classList.add('max-h-0');btn.setAttribute('aria-expanded','false');}
+      if(e.target.closest('a')){menu.classList.remove('max-h-[680px]');menu.classList.add('max-h-0');btn.setAttribute('aria-expanded','false');}
     });
   }
   // Scroll to top on page change + update title

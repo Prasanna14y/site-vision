@@ -14,6 +14,8 @@
 - A dedicated page for each service type: Residential, Commercial, Construction, Farm, Solar Cam hire, Products
 - Suburbs and service areas mentioned on the home page
 - HTTPS and clean URLs (via `.htaccess` on HostGator)
+- **Location pages** for Hallam, Narre Warren, Berwick, Dandenong, Cranbourne, Pakenham and Frankston, each with its own local angle, FAQs and Google-readable service-area data, plus an "Areas we service" hub (`/locations`)
+- **Construction site camera hire page** (`/construction-site-camera-hire`) for builders, alongside the Solar Cam product page
 
 ---
 
@@ -60,15 +62,16 @@ Yellow Pages · True Local · Hotfrog · Oneflare · hipages · Word of Mouth ·
 
 ## Months 2–4: Content that matches real searches
 
-### Location pages (one per area, with genuine local content)
-- CCTV & Alarm Installation **Berwick** / **Narre Warren** / **Pakenham** / **Cranbourne** / **Dandenong** / **Frankston** / **Hallam**
-- Each page needs real jobs, photos and specifics from that area, not the same text with the suburb swapped. Google ignores copy-paste pages.
+### Location pages: built ✅, now make them stronger
+- Pages are live for **Hallam, Narre Warren, Berwick, Dandenong, Cranbourne, Pakenham and Frankston** (`src/lib/locations.ts`).
+- Each month, add **real local proof** to them: a recent job in that suburb, a photo (with permission), or a customer quote. Pages with genuine local detail outrank generic ones.
+- Add more suburbs only when there's something real to say about them, such as Officer, Clyde, Keysborough or Carrum Downs.
 
-### Solar Cam hire pages (likely the fastest organic win)
-Lower competition and high buying intent:
-- "Construction site camera hire Melbourne"
-- "Solar security camera hire"
-- "Building site security camera"
+### Solar Cam hire pages: built ✅ (likely the fastest organic win)
+- `/construction-site-camera-hire` targets builders searching "construction site camera hire Melbourne" and "building site security camera".
+- `/solar-cam` targets "solar security camera hire".
+- Ask builder customers for Google reviews that mention "site camera" and "Solar Cam".
+- Don't create more near-identical hire pages for every keyword. That's a doorway-page pattern Google penalises.
 
 ### Helpful articles (1–2 a month)
 Answer what customers actually ask:
@@ -122,6 +125,6 @@ Real jobs with photos (with permission), the suburb, the problem and what was in
 | Update directory listings (NAP) | Business owner / VA | Weeks 2–6 |
 | Review-request routine after every job | Business owner & techs | Ongoing |
 | GBP photos & posts | Business owner | Fortnightly |
-| Location pages + Solar Cam hire pages | Developer + owner (local details) | Months 2–4 |
+| Location pages + Solar Cam hire pages | Built. Owner adds local jobs and photos | Monthly |
 | 1–2 articles a month | Owner / writer | Months 2–6 |
 | Supplier, industry & builder links | Business owner | Months 3–6 |

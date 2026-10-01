@@ -7,6 +7,7 @@ import LogoIntro from "../components/LogoIntro";
 import ClientMarquee from "../components/ClientMarquee";
 import CountUp from "../components/CountUp";
 import { FAQS } from "../lib/faq";
+import { LOCATIONS } from "../lib/locations";
 import { BadgeCheck, BellOff, Car, MapPin, Radio, ScanFace, Search, ShieldCheck, Smartphone, Sparkles, Spline, Sun, Wrench } from "lucide-react";
 import { SOLAR_INSTALLS } from "../lib/solarCam";
 import SolarFeature, { SolarInstallsStrip } from "../components/SolarFeature";
@@ -449,8 +450,15 @@ function ServiceArea() {
             <p className="mt-4 text-base md:text-lg text-[#4A4A4A] leading-relaxed">
               Our team is based in {BUSINESS.location}, so we're close by for installs, servicing, and call-outs across Casey, Cardinia, Greater Dandenong, and Frankston — and we cover the rest of Melbourne and regional Victoria too.
             </p>
-            <Link to="/contact" className="inline-block mt-6 text-sm font-semibold text-[#1A1A1A] border-b-2 border-[#DF2227] pb-0.5 hover:text-[#DF2227] transition-colors">
-              Check coverage for your suburb →
+            <div className="mt-6 flex flex-wrap gap-2">
+              {LOCATIONS.map((l) => (
+                <Link key={l.slug} to="/locations/$suburb" params={{ suburb: l.slug }} className="border border-[#E5E5E5] px-3 py-1.5 text-sm font-semibold text-[#1A1A1A] hover:border-[#DF2227] hover:text-[#DF2227] transition-colors">
+                  {l.name}
+                </Link>
+              ))}
+            </div>
+            <Link to="/locations" className="inline-block mt-5 text-sm font-semibold text-[#1A1A1A] border-b-2 border-[#DF2227] pb-0.5 hover:text-[#DF2227] transition-colors">
+              All areas we service →
             </Link>
           </div>
           <div className="md:col-span-3 grid sm:grid-cols-3 gap-5 md:gap-6">

@@ -39,6 +39,7 @@ Most updates are a **one-file text edit**. You can make them right here on GitHu
 | Solar Cam name, selling points, photos | `src/lib/solarCam.ts` |
 | FAQ questions & answers (also used by the chat) | `src/lib/faq.ts` |
 | "Sites we've secured" scrolling names | `src/components/ClientMarquee.tsx` |
+| Suburb pages (Hallam, Berwick, Pakenham…): wording, local FAQs, nearby areas | `src/lib/locations.ts` |
 | Page wording | `src/routes/` (one file per page, e.g. `services.tsx`, `about.tsx`) |
 | Logos | `public/assets/logo/` (full brand pack in `brand/`) |
 

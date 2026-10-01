@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ConstructionSiteCameraHireRouteImport } from './routes/construction-site-camera-hire'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProductsRouteImport } from './routes/products'
@@ -26,6 +27,8 @@ import { Route as IndustriesCommercialRouteImport } from './routes/industries/co
 import { Route as IndustriesConstructionRouteImport } from './routes/industries/construction'
 import { Route as IndustriesFarmRouteImport } from './routes/industries/farm'
 import { Route as IndustriesResidentialRouteImport } from './routes/industries/residential'
+import { Route as LocationsIndexRouteImport } from './routes/locations/index'
+import { Route as LocationsSuburbRouteImport } from './routes/locations/$suburb'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -37,6 +40,12 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConstructionSiteCameraHireRoute =
+  ConstructionSiteCameraHireRouteImport.update({
+    id: '/construction-site-camera-hire',
+    path: '/construction-site-camera-hire',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -113,10 +122,21 @@ const IndustriesResidentialRoute = IndustriesResidentialRouteImport.update({
   path: '/industries/residential',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocationsIndexRoute = LocationsIndexRouteImport.update({
+  id: '/locations/',
+  path: '/locations/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocationsSuburbRoute = LocationsSuburbRouteImport.update({
+  id: '/locations/$suburb',
+  path: '/locations/$suburb',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/construction-site-camera-hire': typeof ConstructionSiteCameraHireRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/products': typeof ProductsRoute
@@ -131,11 +151,14 @@ export interface FileRoutesByFullPath {
   '/industries/construction': typeof IndustriesConstructionRoute
   '/industries/farm': typeof IndustriesFarmRoute
   '/industries/residential': typeof IndustriesResidentialRoute
+  '/locations/$suburb': typeof LocationsSuburbRoute
   '/industries/': typeof IndustriesIndexRoute
+  '/locations/': typeof LocationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/construction-site-camera-hire': typeof ConstructionSiteCameraHireRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/products': typeof ProductsRoute
@@ -150,12 +173,15 @@ export interface FileRoutesByTo {
   '/industries/construction': typeof IndustriesConstructionRoute
   '/industries/farm': typeof IndustriesFarmRoute
   '/industries/residential': typeof IndustriesResidentialRoute
+  '/locations/$suburb': typeof LocationsSuburbRoute
   '/industries': typeof IndustriesIndexRoute
+  '/locations': typeof LocationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/construction-site-camera-hire': typeof ConstructionSiteCameraHireRoute
   '/contact': typeof ContactRoute
   '/privacy': typeof PrivacyRoute
   '/products': typeof ProductsRoute
@@ -170,13 +196,16 @@ export interface FileRoutesById {
   '/industries/construction': typeof IndustriesConstructionRoute
   '/industries/farm': typeof IndustriesFarmRoute
   '/industries/residential': typeof IndustriesResidentialRoute
+  '/locations/$suburb': typeof LocationsSuburbRoute
   '/industries/': typeof IndustriesIndexRoute
+  '/locations/': typeof LocationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/construction-site-camera-hire'
     | '/contact'
     | '/privacy'
     | '/products'
@@ -191,11 +220,14 @@ export interface FileRouteTypes {
     | '/industries/construction'
     | '/industries/farm'
     | '/industries/residential'
+    | '/locations/$suburb'
     | '/industries/'
+    | '/locations/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/construction-site-camera-hire'
     | '/contact'
     | '/privacy'
     | '/products'
@@ -210,11 +242,14 @@ export interface FileRouteTypes {
     | '/industries/construction'
     | '/industries/farm'
     | '/industries/residential'
+    | '/locations/$suburb'
     | '/industries'
+    | '/locations'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/construction-site-camera-hire'
     | '/contact'
     | '/privacy'
     | '/products'
@@ -229,12 +264,15 @@ export interface FileRouteTypes {
     | '/industries/construction'
     | '/industries/farm'
     | '/industries/residential'
+    | '/locations/$suburb'
     | '/industries/'
+    | '/locations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ConstructionSiteCameraHireRoute: typeof ConstructionSiteCameraHireRoute
   ContactRoute: typeof ContactRoute
   PrivacyRoute: typeof PrivacyRoute
   ProductsRoute: typeof ProductsRoute
@@ -249,7 +287,9 @@ export interface RootRouteChildren {
   IndustriesConstructionRoute: typeof IndustriesConstructionRoute
   IndustriesFarmRoute: typeof IndustriesFarmRoute
   IndustriesResidentialRoute: typeof IndustriesResidentialRoute
+  LocationsSuburbRoute: typeof LocationsSuburbRoute
   IndustriesIndexRoute: typeof IndustriesIndexRoute
+  LocationsIndexRoute: typeof LocationsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -266,6 +306,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/construction-site-camera-hire': {
+      id: '/construction-site-camera-hire'
+      path: '/construction-site-camera-hire'
+      fullPath: '/construction-site-camera-hire'
+      preLoaderRoute: typeof ConstructionSiteCameraHireRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -373,12 +420,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndustriesResidentialRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/locations/': {
+      id: '/locations/'
+      path: '/locations'
+      fullPath: '/locations/'
+      preLoaderRoute: typeof LocationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/locations/$suburb': {
+      id: '/locations/$suburb'
+      path: '/locations/$suburb'
+      fullPath: '/locations/$suburb'
+      preLoaderRoute: typeof LocationsSuburbRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ConstructionSiteCameraHireRoute: ConstructionSiteCameraHireRoute,
   ContactRoute: ContactRoute,
   PrivacyRoute: PrivacyRoute,
   ProductsRoute: ProductsRoute,
@@ -393,7 +455,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndustriesConstructionRoute: IndustriesConstructionRoute,
   IndustriesFarmRoute: IndustriesFarmRoute,
   IndustriesResidentialRoute: IndustriesResidentialRoute,
+  LocationsSuburbRoute: LocationsSuburbRoute,
   IndustriesIndexRoute: IndustriesIndexRoute,
+  LocationsIndexRoute: LocationsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
