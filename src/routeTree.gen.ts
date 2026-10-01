@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
-import { Route as IndustriesRouteImport } from './routes/industries'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as QuoteRouteImport } from './routes/quote'
@@ -20,6 +19,7 @@ import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SolarCamRouteImport } from './routes/solar-cam'
+import { Route as IndustriesIndexRouteImport } from './routes/industries/index'
 import { Route as IndustriesCommercialRouteImport } from './routes/industries/commercial'
 import { Route as IndustriesConstructionRouteImport } from './routes/industries/construction'
 import { Route as IndustriesFarmRouteImport } from './routes/industries/farm'
@@ -38,11 +38,6 @@ const AboutRoute = AboutRouteImport.update({
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const IndustriesRoute = IndustriesRouteImport.update({
-  id: '/industries',
-  path: '/industries',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -80,32 +75,36 @@ const SolarCamRoute = SolarCamRouteImport.update({
   path: '/solar-cam',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IndustriesIndexRoute = IndustriesIndexRouteImport.update({
+  id: '/industries/',
+  path: '/industries/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndustriesCommercialRoute = IndustriesCommercialRouteImport.update({
-  id: '/commercial',
-  path: '/commercial',
-  getParentRoute: () => IndustriesRoute,
+  id: '/industries/commercial',
+  path: '/industries/commercial',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const IndustriesConstructionRoute = IndustriesConstructionRouteImport.update({
-  id: '/construction',
-  path: '/construction',
-  getParentRoute: () => IndustriesRoute,
+  id: '/industries/construction',
+  path: '/industries/construction',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const IndustriesFarmRoute = IndustriesFarmRouteImport.update({
-  id: '/farm',
-  path: '/farm',
-  getParentRoute: () => IndustriesRoute,
+  id: '/industries/farm',
+  path: '/industries/farm',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const IndustriesResidentialRoute = IndustriesResidentialRouteImport.update({
-  id: '/residential',
-  path: '/residential',
-  getParentRoute: () => IndustriesRoute,
+  id: '/industries/residential',
+  path: '/industries/residential',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/industries': typeof IndustriesRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/products': typeof ProductsRoute
   '/quote': typeof QuoteRoute
@@ -117,12 +116,12 @@ export interface FileRoutesByFullPath {
   '/industries/construction': typeof IndustriesConstructionRoute
   '/industries/farm': typeof IndustriesFarmRoute
   '/industries/residential': typeof IndustriesResidentialRoute
+  '/industries/': typeof IndustriesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/industries': typeof IndustriesRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/products': typeof ProductsRoute
   '/quote': typeof QuoteRoute
@@ -134,13 +133,13 @@ export interface FileRoutesByTo {
   '/industries/construction': typeof IndustriesConstructionRoute
   '/industries/farm': typeof IndustriesFarmRoute
   '/industries/residential': typeof IndustriesResidentialRoute
+  '/industries': typeof IndustriesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
-  '/industries': typeof IndustriesRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/products': typeof ProductsRoute
   '/quote': typeof QuoteRoute
@@ -152,6 +151,7 @@ export interface FileRoutesById {
   '/industries/construction': typeof IndustriesConstructionRoute
   '/industries/farm': typeof IndustriesFarmRoute
   '/industries/residential': typeof IndustriesResidentialRoute
+  '/industries/': typeof IndustriesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -159,7 +159,6 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
-    | '/industries'
     | '/privacy'
     | '/products'
     | '/quote'
@@ -171,12 +170,12 @@ export interface FileRouteTypes {
     | '/industries/construction'
     | '/industries/farm'
     | '/industries/residential'
+    | '/industries/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
     | '/contact'
-    | '/industries'
     | '/privacy'
     | '/products'
     | '/quote'
@@ -188,12 +187,12 @@ export interface FileRouteTypes {
     | '/industries/construction'
     | '/industries/farm'
     | '/industries/residential'
+    | '/industries'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/contact'
-    | '/industries'
     | '/privacy'
     | '/products'
     | '/quote'
@@ -205,13 +204,13 @@ export interface FileRouteTypes {
     | '/industries/construction'
     | '/industries/farm'
     | '/industries/residential'
+    | '/industries/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
-  IndustriesRoute: typeof IndustriesRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   ProductsRoute: typeof ProductsRoute
   QuoteRoute: typeof QuoteRoute
@@ -219,6 +218,11 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SolarCamRoute: typeof SolarCamRoute
+  IndustriesCommercialRoute: typeof IndustriesCommercialRoute
+  IndustriesConstructionRoute: typeof IndustriesConstructionRoute
+  IndustriesFarmRoute: typeof IndustriesFarmRoute
+  IndustriesResidentialRoute: typeof IndustriesResidentialRoute
+  IndustriesIndexRoute: typeof IndustriesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -242,13 +246,6 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/industries': {
-      id: '/industries'
-      path: '/industries'
-      fullPath: '/industries'
-      preLoaderRoute: typeof IndustriesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -300,60 +297,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SolarCamRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/industries/': {
+      id: '/industries/'
+      path: '/industries'
+      fullPath: '/industries/'
+      preLoaderRoute: typeof IndustriesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/industries/commercial': {
       id: '/industries/commercial'
-      path: '/commercial'
+      path: '/industries/commercial'
       fullPath: '/industries/commercial'
       preLoaderRoute: typeof IndustriesCommercialRouteImport
-      parentRoute: typeof IndustriesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/industries/construction': {
       id: '/industries/construction'
-      path: '/construction'
+      path: '/industries/construction'
       fullPath: '/industries/construction'
       preLoaderRoute: typeof IndustriesConstructionRouteImport
-      parentRoute: typeof IndustriesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/industries/farm': {
       id: '/industries/farm'
-      path: '/farm'
+      path: '/industries/farm'
       fullPath: '/industries/farm'
       preLoaderRoute: typeof IndustriesFarmRouteImport
-      parentRoute: typeof IndustriesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/industries/residential': {
       id: '/industries/residential'
-      path: '/residential'
+      path: '/industries/residential'
       fullPath: '/industries/residential'
       preLoaderRoute: typeof IndustriesResidentialRouteImport
-      parentRoute: typeof IndustriesRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
-
-interface IndustriesRouteChildren {
-  IndustriesCommercialRoute: typeof IndustriesCommercialRoute
-  IndustriesConstructionRoute: typeof IndustriesConstructionRoute
-  IndustriesFarmRoute: typeof IndustriesFarmRoute
-  IndustriesResidentialRoute: typeof IndustriesResidentialRoute
-}
-
-const IndustriesRouteChildren: IndustriesRouteChildren = {
-  IndustriesCommercialRoute: IndustriesCommercialRoute,
-  IndustriesConstructionRoute: IndustriesConstructionRoute,
-  IndustriesFarmRoute: IndustriesFarmRoute,
-  IndustriesResidentialRoute: IndustriesResidentialRoute,
-}
-
-const IndustriesRouteWithChildren = IndustriesRoute._addFileChildren(
-  IndustriesRouteChildren,
-)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
-  IndustriesRoute: IndustriesRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   ProductsRoute: ProductsRoute,
   QuoteRoute: QuoteRoute,
@@ -361,6 +346,11 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SolarCamRoute: SolarCamRoute,
+  IndustriesCommercialRoute: IndustriesCommercialRoute,
+  IndustriesConstructionRoute: IndustriesConstructionRoute,
+  IndustriesFarmRoute: IndustriesFarmRoute,
+  IndustriesResidentialRoute: IndustriesResidentialRoute,
+  IndustriesIndexRoute: IndustriesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

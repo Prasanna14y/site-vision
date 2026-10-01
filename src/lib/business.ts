@@ -15,6 +15,8 @@ export const BUSINESS = {
   address: ["31 Rusty Pl", "Hallam VIC 3803"],
   hours: "Monday–Saturday 9am–5pm",
   yearsExperience: 25,
+  homesSecured: 500, // shown as "500+"
+  sitesSecured: 700, // construction sites, farms & land — shown as "700+"
 
   licence: "", // not published on the old site — add when known
   abn: "",

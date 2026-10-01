@@ -140,6 +140,15 @@ def main():
     var el=document.getElementById(a.getAttribute('href').slice(1));
     if(el&&!el.classList.contains('page')){e.preventDefault();el.scrollIntoView({behavior:'smooth',block:'start'});}
   });
+  // Count-up numbers (mirrors src/components/CountUp.tsx)
+  if(('IntersectionObserver' in window)&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+    var cio=new IntersectionObserver(function(es){es.forEach(function(e){
+      if(!e.isIntersecting)return;cio.unobserve(e.target);
+      var el=e.target,to=+el.dataset.count,suf=el.dataset.suffix||'',t0=performance.now();
+      (function tick(now){var t=Math.min(1,(now-t0)/1400);el.textContent=Math.round(to*(1-Math.pow(1-t,3)))+suf;if(t<1)requestAnimationFrame(tick);})(t0);
+    });},{threshold:0.4});
+    document.querySelectorAll('[data-count]').forEach(function(el){el.textContent='0'+(el.dataset.suffix||'');cio.observe(el);});
+  }
   // Splash: tap to skip (timing itself is pure CSS)
   var sp=document.querySelector('[data-splash]');
   if(sp)sp.addEventListener('click',function(){sp.classList.add('splash-skip');});

@@ -44,6 +44,8 @@ function AboutPage() {
               <div className="space-y-6">
                 {[
                   [`${BUSINESS.yearsExperience} Years`, "Experience in commercial and home security"],
+                  [`${BUSINESS.homesSecured}+ Homes`, "Secured across Melbourne"],
+                  [`${BUSINESS.sitesSecured}+ Sites`, "Construction sites, farms & land secured"],
                   ["Grade A1", "Melbourne monitoring centre to ASIAL Australian Standards"],
                   ["Leading brands", "Bosch, Hills, Hikvision, Dahua, Honeywell"],
                   ["100% Australian", "Owned and operated, based in Hallam VIC"],

@@ -5,6 +5,9 @@ import { PHOTOS } from "../lib/photos";
 import { StructuredData } from "../components/StructuredData";
 import LogoIntro from "../components/LogoIntro";
 import ClientMarquee from "../components/ClientMarquee";
+import CountUp from "../components/CountUp";
+import { BadgeCheck, MapPin, Radio, ShieldCheck, Sun, Wrench } from "lucide-react";
+import { SOLAR_INSTALLS } from "../lib/solarCam";
 import SolarFeature, { SolarInstallsStrip } from "../components/SolarFeature";
 import { BRANDS, CATALOGUE } from "../lib/catalogue";
 
@@ -42,6 +45,9 @@ function HomePage() {
 
       {/* Section 3: How It Works */}
       <HowItWorks />
+
+      {/* Why Site Vision */}
+      <WhyUs />
 
       {/* Section 4: Product Tiers */}
       <ProductTiers />
@@ -86,7 +92,7 @@ function HeroSection() {
               <span className="text-[#DF2227]">monitored 24/7</span>
             </h1>
             <p className="mt-6 text-base md:text-lg text-[#4A4A4A] leading-relaxed max-w-[500px]">
-              Solar-powered, 4G/5G connected security systems for homes, businesses, and construction sites across Melbourne and Victoria. No mains power needed.
+              CCTV, alarms, access control and Grade A1 monitoring for homes, businesses and building sites across Melbourne — plus Solar Cam hire for sites with no power.
             </p>
             <div className="flex flex-wrap items-center gap-4 mt-8">
               <Link to="/quote" className="hero-cta-link text-lg">
@@ -106,11 +112,11 @@ function HeroSection() {
               </div>
               <div className="flex items-center gap-2">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#DF2227" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span className="font-medium">Australian Owned &amp; Operated</span>
+                <span className="font-medium">{BUSINESS.homesSecured}+ Homes Secured</span>
               </div>
               <div className="flex items-center gap-2">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#DF2227" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                <span className="font-medium">24/7 Monitoring Centre</span>
+                <span className="font-medium">{BUSINESS.sitesSecured}+ Sites, Farms &amp; Land</span>
               </div>
             </div>
           </div>
@@ -137,21 +143,33 @@ function HeroSection() {
   );
 }
 
-/* =============== TRUST STRIP =============== */
+/* =============== STATS BAND =============== */
 function TrustStrip() {
+  const stats = [
+    { n: BUSINESS.yearsExperience, suffix: "", label: "Years in security" },
+    { n: BUSINESS.homesSecured, suffix: "+", label: "Homes secured" },
+    { n: BUSINESS.sitesSecured, suffix: "+", label: "Construction sites, farms & land" },
+  ];
   return (
-    <section className="border-t border-b border-[#E5E5E5] bg-[#F5F5F5] py-8">
-      <div className="content-container">
-        <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
-          {/* Accreditation badges */}
-          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs font-mono text-[#4A4A4A] text-center">
-            <span className="bg-white border border-[#E5E5E5] px-3 py-2 font-semibold">{BUSINESS.yearsExperience} YEARS</span>
-            <span className="hidden sm:inline">|</span>
-            <span>BOSCH • HIKVISION • DAHUA • HILLS</span>
-            <span className="hidden sm:inline">|</span>
-            <span>ASIAL GRADE A1 MONITORING</span>
+    <section className="bg-[#F5F5F5] border-b border-[#E5E5E5]">
+      <div className="content-container py-12 md:py-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6">
+          {stats.map((st) => (
+            <div key={st.label} className="border-l-2 border-[#DF2227] pl-4 md:pl-6">
+              <div className="font-display font-bold text-4xl md:text-6xl text-[#1A1A1A] tracking-tight leading-none">
+                <CountUp to={st.n} suffix={st.suffix} />
+              </div>
+              <div className="mt-2 text-xs md:text-sm text-[#4A4A4A] font-medium">{st.label}</div>
+            </div>
+          ))}
+          <div className="border-l-2 border-[#DF2227] pl-4 md:pl-6">
+            <div className="font-display font-bold text-4xl md:text-6xl text-[#1A1A1A] tracking-tight leading-none">A1</div>
+            <div className="mt-2 text-xs md:text-sm text-[#4A4A4A] font-medium">Grade monitoring centre (ASIAL)</div>
           </div>
         </div>
+        <p className="mt-10 text-center font-mono text-[0.65rem] md:text-xs tracking-[0.2em] text-[#4A4A4A] uppercase">
+          Installing {BRANDS.join(" • ")}
+        </p>
       </div>
     </section>
   );
@@ -162,27 +180,23 @@ function HowItWorks() {
   const steps = [
     {
       number: "01",
-      label: "Design & Install",
-      desc: "We survey your site, design a custom system, and install solar-powered 4G/5G cameras in hours — not days. No trenching, no mains power, no disruption.",
-      icon: "🔲"
+      label: "Free quote",
+      desc: "Tell us about your property. We'll talk through your risks and recommend the right system — free, with no obligation.",
     },
     {
       number: "02",
-      label: "Monitoring & Response",
-      desc: "Your system connects to our 24/7 monitoring centre. Any alert is verified and acted on within seconds — not minutes.",
-      icon: "🔲"
+      label: "Expert installation",
+      desc: "Our team installs and tests everything — cameras, alarms, access control, cabling — and shows you how it all works.",
     },
     {
       number: "03",
-      label: "Maintenance",
-      desc: "Remote diagnostics and regular system checks keep your cameras online. We handle firmware, battery health, and signal strength proactively.",
-      icon: "🔲"
+      label: "Watch & monitor",
+      desc: "See your cameras and arm your alarm from your phone, with optional 24/7 monitoring through a Grade A1 Melbourne centre.",
     },
     {
       number: "04",
-      label: "Footage & Records",
-      desc: "Access your footage on demand via our secure portal or mobile app. Clips are stored encrypted in Australian data centres.",
-      icon: "🔲"
+      label: "Ongoing support",
+      desc: "We're local in Hallam — here for servicing, upgrades, and moving equipment as your needs change.",
     },
   ];
 
@@ -195,7 +209,7 @@ function HowItWorks() {
             How it works
           </h2>
           <p className="mt-4 text-base md:text-lg text-[#4A4A4A] max-w-[600px] mx-auto">
-            From survey to secure — four steps to a fully monitored property.
+            From first call to a fully protected property — and we stay with you after.
           </p>
         </div>
 
@@ -301,6 +315,37 @@ function ProductTiers() {
   );
 }
 
+/* =============== WHY SITE VISION =============== */
+function WhyUs() {
+  const reasons = [
+    { icon: ShieldCheck, title: `${BUSINESS.yearsExperience} years' experience`, body: "A quarter-century securing Victorian homes, businesses, and sites." },
+    { icon: MapPin, title: "Local to the south-east", body: "Based in Hallam — close by for installs, servicing, and call-outs." },
+    { icon: BadgeCheck, title: "Trusted brands", body: `We install ${BRANDS.slice(0, 4).join(", ")} and more — gear built to last.` },
+    { icon: Radio, title: "Grade A1 monitoring", body: "Optional 24/7 alarm monitoring through a Melbourne centre to ASIAL standards." },
+    { icon: Wrench, title: "Install or supply", body: "Full design-and-install, or just the products if you have your own installer." },
+    { icon: Sun, title: "Solar Cam hire", body: "Self-powered site cameras on weekly hire — ideal for building sites." },
+  ];
+  return (
+    <section className="section-padding bg-[#1A1A1A] text-white">
+      <div className="content-container">
+        <div className="max-w-2xl mb-12">
+          <div className="font-mono text-xs tracking-[0.2em] text-[#DF2227] uppercase mb-3">Why Site Vision</div>
+          <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">Security done properly, by locals</h2>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border border-white/10">
+          {reasons.map((r) => (
+            <div key={r.title} className="bg-[#1A1A1A] p-6 lg:p-8 group hover:bg-[#222] transition-colors">
+              <r.icon size={26} className="text-[#DF2227] mb-5 group-hover:scale-110 transition-transform" aria-hidden="true" />
+              <h3 className="font-display text-lg font-bold mb-2">{r.title}</h3>
+              <p className="text-sm text-white/60 leading-relaxed">{r.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* =============== PRODUCTS TEASER =============== */
 function ProductsTeaser() {
   return (
@@ -385,36 +430,36 @@ function ServiceArea() {
 /* FAQ content — also emitted as FAQPage structured data for Google. */
 const FAQS = [
   {
-    q: "Do solar cameras still work through a Melbourne winter?",
-    a: "Yes. Our solar cameras pair the panel with a high-capacity battery sized for short, overcast winter days, so they keep recording through runs of poor sun. We position and angle every panel on site to get the most out of the light available.",
+    q: "What areas do you cover?",
+    a: "We're based in Hallam and work right across Melbourne — especially the south-east (Casey, Cardinia, Dandenong, Frankston) — plus regional Victoria. Get in touch to confirm your location.",
   },
   {
-    q: "Do I need mains power, Wi-Fi or an NBN connection?",
-    a: "No. Solar cameras run off their own panel and battery and connect over the 4G/5G mobile network, so they suit construction sites, farms, and anywhere cabling isn't practical. For homes and businesses that already have power and internet, we also install wired IP/HD CCTV systems.",
+    q: "Do you do homes and businesses?",
+    a: "Both. We've secured 500+ homes and 700+ construction sites, farms, and blocks of land, as well as shops, service stations, food outlets, offices, and warehouses.",
   },
   {
-    q: "How does monitoring work?",
-    a: "Alarm monitoring runs through a Melbourne monitoring centre operating to ASIAL Australian Standards, Grade A1. When an alarm or camera event is triggered, operators assess it and follow the response plan agreed with you — contacting you, your nominated contacts, or emergency services as required. You can also watch your cameras live from the app.",
+    q: "How does Solar Cam hire work?",
+    a: "You hire the Site Vision Solar Cam by the week for as long as your build runs. We install it on site, you watch it from your phone, and we move or collect it when the job changes or finishes. It needs no site power or internet.",
+  },
+  {
+    q: "Can I just buy the equipment?",
+    a: "Yes. We sell cameras, recorders, alarms, access control, intercoms, cables, and accessories from brands like Hikvision, Dahua, Bosch, Hills, and Honeywell. Send a product enquiry and we'll come back with availability and pricing.",
   },
   {
     q: "Can I see my cameras on my phone?",
-    a: "Yes. Every system comes with app access, so you can view live and recorded footage, get motion alerts, and arm or disarm your alarm from anywhere.",
+    a: "Yes. Every system comes with app access, so you can view live and recorded footage, get alerts, and arm or disarm your alarm from anywhere.",
   },
   {
-    q: "Which brands do you install?",
-    a: "We work with leading security brands including Bosch, Hills, Hikvision, Dahua, and Honeywell, and recommend the equipment that best suits your site and budget.",
+    q: "How does alarm monitoring work?",
+    a: "Monitoring runs through a Melbourne monitoring centre operating to ASIAL Australian Standards, Grade A1. When your alarm is triggered, operators assess it and follow the response plan agreed with you — contacting you, your nominated contacts, or emergency services as required.",
   },
   {
     q: "Can you upgrade or take over my existing system?",
-    a: "Often, yes. We can assess your existing cameras or alarm, reuse what's still serviceable, and upgrade the rest — including adding monitoring or app access to an older system.",
-  },
-  {
-    q: "What areas do you service?",
-    a: "We're based in Hallam and service all of Melbourne — especially the south-east, including Casey, Cardinia, Dandenong, and Frankston — plus regional Victoria. Contact us to confirm coverage for your location.",
+    a: "Often, yes. We'll assess your current cameras or alarm, reuse what's still serviceable, and upgrade the rest — including adding app access or monitoring to an older system.",
   },
   {
     q: "How do I get a quote?",
-    a: "Fill in the quote form or give us a call. Tell us your suburb, the type of property, and what you want to protect, and we'll come back with a tailored recommendation — free and with no obligation.",
+    a: "Use the quote form or give us a call. Tell us your suburb, the type of property, and what you want to protect — we'll come back with a recommendation, free and with no obligation.",
   },
 ];
 
@@ -464,6 +509,12 @@ function FAQSection() {
 function FinalCTA() {
   return (
     <section className="section-padding bg-[#1A1A1A] relative overflow-hidden">
+      {/* Real install photo behind */}
+      <picture>
+        <source srcSet={SOLAR_INSTALLS[1].webp} type="image/webp" />
+        <img src={SOLAR_INSTALLS[1].jpg} alt="" loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover opacity-25" />
+      </picture>
+      <div className="absolute inset-0 bg-gradient-to-t from-[#1A1A1A] via-[#1A1A1A]/70 to-[#1A1A1A]/40" />
       {/* Subtle grid overlay */}
       <div className="absolute inset-0 opacity-5" style={{
         backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
