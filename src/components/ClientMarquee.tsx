@@ -1,6 +1,6 @@
 // Brands whose sites (e.g. franchise stores) Site Vision has secured.
 // Shown as plain text — not the brands' official logos (trademark/endorsement).
-export const SECURED_SITES = ["BP", "Shell Reddy Express", "Ampol", "Gotcha", "7-Eleven", "500+ Homes"];
+export const SECURED_SITES = ["BP", "Shell Reddy Express", "Ampol", "Gotcha", "7-Eleven", "500+ Homes", "700+ Construction Sites, Farms & Land"];
 
 const MORE = "& many more";
 
